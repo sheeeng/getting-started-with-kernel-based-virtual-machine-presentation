@@ -7,34 +7,36 @@ on:
 
 jobs:
   build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2.4.2
 
-      - name: Load .nvmrc File Content 👀
+      - name: Load .nvmrc File Content
         id: node_version
         run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
 
-      - name: Install Node.js 🔧
-        uses: actions/setup-node@v3
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3.4.1
         with:
           node-version: ${{ steps.node_version.outputs.nvmrc }}
 
-      - uses: actions/cache@v3
+      - name: Cache
+        uses: actions/cache@v3.0.6
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install Dependencies and Puppeteer 🔩
+      - name: Install Dependencies and Puppeteer
         run: |
           npm ci
           sudo apt-get install libgbm-dev
           npm install puppeteer --no-save
 
-      - name: Build Marp Slide Deck 🛠️
+      - name: Build Marp Slide Deck
         run: |
           CHROME_PATH=$(node -e "console.log(require('puppeteer').executablePath())") npm run build
           touch ./public/.nojekyll
@@ -45,10 +47,10 @@ jobs:
           # Recommend to set lang for your deck to get better rendering for Open Graph image
           LANG: en-US
 
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Deploy to GitHub Pages
+        uses: jamesives/github-pages-deploy-action@v4.4.0
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: public
+          branch: gh-pages
+          folder: public
