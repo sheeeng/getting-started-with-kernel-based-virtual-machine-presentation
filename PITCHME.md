@@ -1,75 +1,95 @@
 ---
+title: 'Getting Started with Kernel-based Virtual Machine (KVM)'
+description: 'Presentation slides for Getting Started with Kernel-based Virtual Machine (KVM) workshop at Open Source Summit Europe 2022.'
+header: '**Getting Started with Kernel-based Virtual Machine (KVM)**'
+author: 'Leonard Sheng Sheng Lee'
+footer: '_Leonard Sheng Sheng Lee_'
+keywords: linux,kvm,virtualization,marp,marp-cli,slide
 marp: true
-title: Marp CLI example
-description: Hosting Marp slide deck on the web
-theme: uncover
 paginate: true
-_paginate: false
+theme: default
+backgroundImage: url('https://marp.app/assets/hero-background.svg')
 ---
 
-![bg](./assets/gradient.jpg)
+<style>
+section {
+  background: white;
+}
+section.text-align-center h1,h2 {
+  text-align: center;
+}
+</style>
 
-# <!--fit--> Marp CLI example
+# Getting Started with Kernel-based Virtual Machine (KVM)
 
-Hosting Marp slide deck on the web
-
-https://github.com/yhatt/marp-cli-example
-
-<style scoped>a { color: #eee; }</style>
-
-<!-- This is presenter note. You can write down notes through HTML comment. -->
-
----
-
-![Marp bg 60%](https://raw.githubusercontent.com/marp-team/marp/master/marp.png)
-
----
-
-<!-- _backgroundColor: "#123" -->
-<!-- _color: "#fff" -->
-
-##### <!--fit--> [Marp CLI](https://github.com/marp-team/marp-cli) + [GitHub Pages](https://github.com/pages) | [Netlify](https://www.netlify.com/) | [Vercel](https://vercel.com/)
-
-##### <!--fit--> 👉 The easiest way to host<br />your Marp deck on the web
+![bg right:40% 80%](https://www.linux-kvm.org/kvmless/kvmbanner-logo3.png)
 
 ---
 
-![bg right 60%](https://icongr.am/octicons/mark-github.svg)
+<!-- class: text-align-center -->
+## Overview of Kernel-based Virtual Machine (KVM)
 
-## **[GitHub Pages](https://github.com/pages)**
+- An open source virtualization technology built into Linux®. Turn Linux into a hypervisor. Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
+- KVM is part of Linux. Available from Linux 2.6.20 or newer.
 
-#### Ready to write & host your deck!
-
-[![Use this as template h:1.5em](https://img.shields.io/badge/-Use%20this%20as%20template-brightgreen?style=for-the-badge&logo=github)](https://github.com/yhatt/marp-cli-example/generate)
-
----
-
-![bg right 60%](https://icongr.am/simple/netlify.svg?colored)
-
-## **[Netlify](https://www.netlify.com/)**
-
-#### Ready to write & host your deck!
-
-[![Deploy to Netlify h:1.5em](./assets/netlify-deploy-button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yhatt/marp-cli-example)
+<!--
+Some speaker notes here that might be useful.
+-->
 
 ---
 
-![bg right 60%](https://icongr.am/simple/zeit.svg)
+## Kernel-based Virtual Machine (KVM)
 
-## **[Vercel](https://vercel.com/)**
-
-#### Ready to write & host your deck!
-
-[![Deploy to Vercel h:1.5em](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/yhatt/marp-cli-example)
+Text
 
 ---
 
-### <!--fit--> :ok_hand:
+## Slide 2
+
+Text
 
 ---
 
-![bg 40% opacity blur](https://avatars1.githubusercontent.com/u/3993388?v=4)
+## Slide 3
 
-### Created by Yuki Hattori ([@yhatt](https://github.com/yhatt))
+Text
 
-https://github.com/yhatt/marp-cli-example
+---
+
+## Slide 4
+
+Text
+
+---
+
+## Links
+
+- <https://osseu2022.sched.com/event/15z24/getting-started-with-kernel-based-virtual-machine-kvm-leonard-sheng-sheng-lee-computas>
+- <https://marp.app/>
+
+---
+
+## Abstract (Part 1)
+
+Want to get started with Kernel-based Virtual Machine (KVM)? Want to run a virtual machine on your system using open source technologies? Want to interact with KVM virtual machines from command line interface (CLI)? In this tutorial, Leonard will be teaching people to familiarize themselves with KVM technologies, which allows virtual machines to run with near native performance.
+
+---
+
+## Abstract (Part 2)
+
+Participants must have a basic knowledge on how Linux operating system works, and must have a Linux based operating system running natively on a laptop in order to join this tutorial. We will be focusing on doing some tasks of creating, accessing, modifying, and deleting KVMs, from both graphical user interface (GUI) and CLI. We will busy with these virt-manager tools in the tutorial. - virt-install is a command line tool which provides an easy way to provision operating systems into virtual machines. - virt-viewer is a lightweight UI interface for interacting with the graphical display of virtualized guest OS. It can display VNC or SPICE, and uses libvirt to lookup the graphical connection details. At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manager KVMs with confident, from both GUI and CLI.
+
+---
+
+### Contact
+
+Leonard Sheng Sheng Lee
+
+https://github.com/sheeeng
+
+---
+
+<!-- _class: text-align-center -->
+# The End
+
+---

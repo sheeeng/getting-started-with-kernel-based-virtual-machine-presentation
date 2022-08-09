@@ -1,7 +1,7 @@
 {
-  "name": "marp-cli-example",
-  "version": "0.0.0",
-  "author": "Yuki Hattori <yukihattori1116@gmail.com>",
+  "name": "getting-started-with-kernel-based-virtual-machine-presentation",
+  "version": "0.0.1",
+  "author": "Leonard Sheng Sheng Lee <leonard.sheng.sheng.lee@gmail.com>",
   "license": "WTFPL",
   "private": true,
   "scripts": {
