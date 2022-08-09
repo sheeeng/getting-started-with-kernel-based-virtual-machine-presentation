@@ -7,26 +7,17 @@ footer: '_Leonard Sheng Sheng Lee_'
 keywords: linux,kvm,virtualization,marp,marp-cli,slide
 marp: true
 paginate: true
-theme: default
+theme: uncover
 backgroundImage: url('https://marp.app/assets/hero-background.svg')
 ---
 
-<style>
-section {
-  background: white;
-}
-section.text-align-center h1,h2 {
-  text-align: center;
-}
-</style>
-
 # Getting Started with Kernel-based Virtual Machine (KVM)
 
-![bg right:40% 80%](https://www.linux-kvm.org/kvmless/kvmbanner-logo3.png)
+![bg 100% opacity blur](https://marp.app/assets/hero-background.svg)
+
 
 ---
 
-<!-- class: text-align-center -->
 ## Overview of Kernel-based Virtual Machine (KVM)
 
 - An open source virtualization technology built into Linux®. Turn Linux into a hypervisor. Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
@@ -77,7 +68,19 @@ Want to get started with Kernel-based Virtual Machine (KVM)? Want to run a virtu
 
 ## Abstract (Part 2)
 
-Participants must have a basic knowledge on how Linux operating system works, and must have a Linux based operating system running natively on a laptop in order to join this tutorial. We will be focusing on doing some tasks of creating, accessing, modifying, and deleting KVMs, from both graphical user interface (GUI) and CLI. We will busy with these virt-manager tools in the tutorial. - virt-install is a command line tool which provides an easy way to provision operating systems into virtual machines. - virt-viewer is a lightweight UI interface for interacting with the graphical display of virtualized guest OS. It can display VNC or SPICE, and uses libvirt to lookup the graphical connection details. At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manager KVMs with confident, from both GUI and CLI.
+Participants must have a basic knowledge on how Linux operating system works, and must have a Linux based operating system running natively on a laptop in order to join this tutorial. We will be focusing on doing some tasks of creating, accessing, modifying, and deleting KVMs, from both graphical user interface (GUI) and CLI.
+
+---
+
+## Abstract (Part 3)
+
+We will busy with these virt-manager tools in the tutorial. - virt-install is a command line tool which provides an easy way to provision operating systems into virtual machines. - virt-viewer is a lightweight UI interface for interacting with the graphical display of virtualized guest OS. It can display VNC or SPICE, and uses libvirt to lookup the graphical connection details.
+
+---
+
+## Abstract (Part 4)
+
+At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manager KVMs with confident, from both GUI and CLI.
 
 ---
 
@@ -85,11 +88,14 @@ Participants must have a basic knowledge on how Linux operating system works, an
 
 Leonard Sheng Sheng Lee
 
-https://github.com/sheeeng
+<https://github.com/sheeeng>
 
 ---
 
-<!-- _class: text-align-center -->
-# The End
+### <!--fit--> :raising_hand_man: :raising_hand: :raising_hand_woman:
+
+---
+
+### <!--fit--> :pray:
 
 ---
