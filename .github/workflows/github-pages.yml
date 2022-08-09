@@ -6,16 +6,17 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
 
-      - name: Detect Node version from .nvmrc
+      - name: Load .nvmrc File Content 👀
         id: node_version
         run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
 
-      - name: Install Node.js
+      - name: Install Node.js 🔧
         uses: actions/setup-node@v3
         with:
           node-version: ${{ steps.node_version.outputs.nvmrc }}
@@ -27,13 +28,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies and Puppeteer
+      - name: Install Dependencies and Puppeteer 🔩
         run: |
           npm ci
           sudo apt-get install libgbm-dev
-          npm i puppeteer --no-save
+          npm install puppeteer --no-save
 
-      - name: Build Marp slide deck
+      - name: Build Marp Slide Deck 🛠️
         run: |
           CHROME_PATH=$(node -e "console.log(require('puppeteer').executablePath())") npm run build
           touch ./public/.nojekyll
@@ -44,7 +45,7 @@ jobs:
           # Recommend to set lang for your deck to get better rendering for Open Graph image
           LANG: en-US
 
-      - name: Deploy to GitHub pages
+      - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
