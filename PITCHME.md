@@ -18,6 +18,13 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
+### <!--fit--> [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)
+
+---
+
+### <!--fit--> :raising_hand_man: :raising_hand: :raising_hand_woman:
+
+---
 ## Overview of Kernel-based Virtual Machine (KVM)
 
 - An open source virtualization technology built into Linux®. Turn Linux into a hypervisor. Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
@@ -92,10 +99,8 @@ Leonard Sheng Sheng Lee
 
 ---
 
-### <!--fit--> :raising_hand_man: :raising_hand: :raising_hand_woman:
-
----
-
 ### <!--fit--> :pray:
 
 ---
+
+## End
