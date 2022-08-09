@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.2
+        uses: actions/checkout@v3
 
       - name: Load .nvmrc File Content
         id: node_version
         run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ steps.node_version.outputs.nvmrc }}
 
       - name: Cache
-        uses: actions/cache@v3.0.6
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -48,7 +48,7 @@ jobs:
           LANG: en-US
 
       - name: Deploy to GitHub Pages
-        uses: jamesives/github-pages-deploy-action@v4.4.0
+        uses: jamesives/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
