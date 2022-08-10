@@ -3,7 +3,7 @@ title: 'Getting Started with Kernel-based Virtual Machine (KVM)'
 description: 'Presentation slides for Getting Started with Kernel-based Virtual Machine (KVM) workshop at Open Source Summit Europe 2022.'
 header: '**Getting Started with Kernel-based Virtual Machine (KVM)** / Open Source On-Ramp / **Open Source Summit Europe 2002**'
 author: 'Leonard Sheng Sheng Lee'
-footer: '_Leonard Sheng Sheng Lee_'
+footer: 'Leonard Sheng Sheng Lee / Made with [Marp](https://marp.app/)'
 keywords: linux,kvm,virtualization,marp,marp-cli,slide
 marp: true
 paginate: true
@@ -15,36 +15,79 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ![bg 100% opacity blur](https://marp.app/assets/hero-background.svg)
 
-
 ---
 
 ### <!--fit--> [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)
 
 ---
 
-### <!--fit--> :raising_hand_man: :raising_hand: :raising_hand_woman:
+## <!--fit--> :raising_hand_man: :raising_hand: :raising_hand_woman:
 
 ---
+
 ## Overview of Kernel-based Virtual Machine (KVM)
 
-- An open source virtualization technology built into Linux®. Turn Linux into a hypervisor. Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
-- KVM is part of Linux. Available from Linux 2.6.20 or newer.
+- An open source virtualization technology built into Linux®. Turn Linux into a hypervisor.
+- Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
+- Available from Linux 2.6.20 or newer.
 
 <!--
 Some speaker notes here that might be useful.
+
+The default virtualization technology supported in Ubuntu is KVM. For Intel and AMD hardware KVM requires virtualization extensions. But KVM is also available for IBM Z and LinuxONE, IBM POWER as well as for ARM64.
 -->
 
 ---
 
-## Kernel-based Virtual Machine (KVM)
+## Overview of Kernel-based Virtual Machine (KVM)
 
-Text
+- QEMU (Quick Emulator) is part of the KVM experience being the userspace backend for it, but it also can be used for hardware without virtualization extensions by using its Tiny Code Generator (TCG) mode.
+
+<!--
+Some speaker notes here that might be useful.
+
+The Tiny Code Generator (TCG) is the core binary translation engine that is responsible for QEMU ability to emulate foreign processors on any given supported host.
+-->
 
 ---
 
-## Slide 2
+## Hardware Virtualization Support
 
-Text
+- KVM requires a CPU with virtualization extensions.
+  - Intel® Virtualization Technology (Intel® VT)
+    - CPU flag is `vmx` (Virtual Machine Extensions).
+  - AMD virtualization (AMD-V)
+    - CPU flag is `svm` (Secure Virtual Machine).
+
+---
+
+## Hardware Virtualization Support
+
+- Run the following command to check:
+
+```shell
+egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+```
+
+- Nothing printed? your system does not support the relevant virtualization extensions. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.
+
+---
+
+## Installing Virtualization Software
+
+```shell
+sudo dnf group install \
+    virtualization \
+    --with-optional \
+    --assumeyes
+```
+
+```shell
+sudo apt-get install \
+    bridge-utils cpu-checker libvirt-clients \
+    libvirt-daemon qemu qemu-kvm \
+    --assume-yes
+```
 
 ---
 
@@ -63,7 +106,12 @@ Text
 ## Links
 
 - <https://osseu2022.sched.com/event/15z24/getting-started-with-kernel-based-virtual-machine-kvm-leonard-sheng-sheng-lee-computas>
-- <https://marp.app/>
+- <https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/>
+- <https://help.ubuntu.com/community/KVM/Installation>
+- <https://ubuntu.com/blog/kvm-hyphervisor>
+- <https://www.intel.com/content/www/us/en/virtualization/virtualization-technology/intel-virtualization-technology.html>
+- <https://wiki.qemu.org/Features/TCG>
+- <https://virt-manager.org/>
 
 ---
 
@@ -100,7 +148,6 @@ Leonard Sheng Sheng Lee
 ---
 
 ### <!--fit--> :pray:
-
 ---
 
-## End
+### End
