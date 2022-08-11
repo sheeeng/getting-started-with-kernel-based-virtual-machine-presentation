@@ -1,9 +1,9 @@
 ---
 title: 'Getting Started with Kernel-based Virtual Machine (KVM)'
 description: 'Presentation slides for Getting Started with Kernel-based Virtual Machine (KVM) workshop at Open Source Summit Europe 2022.'
-header: '**Getting Started with Kernel-based Virtual Machine (KVM)** / Open Source On-Ramp / **Open Source Summit Europe 2002**'
+header: '**Getting Started with Kernel-based Virtual Machine (KVM)** / Open Source On-Ramp / **Open Source Summit Europe 2022**'
 author: 'Leonard Sheng Sheng Lee'
-footer: 'Leonard Sheng Sheng Lee / Made with [Marp](https://marp.app/)'
+footer: 'Leonard Sheng Sheng Lee / Made with [Marp](https://marp.app/) / Participants Agree to Abide by [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)'
 keywords: linux,kvm,virtualization,marp,marp-cli,slide
 marp: true
 paginate: true
@@ -14,10 +14,6 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 # Getting Started with Kernel-based Virtual Machine (KVM)
 
 ![bg 100% opacity blur](https://marp.app/assets/hero-background.svg)
-
----
-
-### <!--fit--> [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)
 
 ---
 
@@ -55,9 +51,9 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 - KVM requires a CPU with virtualization extensions.
   - Intel® Virtualization Technology (Intel® VT)
-    - CPU flag is `vmx` (Virtual Machine Extensions).
+    - CPU flag is **`vmx`** (_Virtual Machine Extensions_).
   - AMD virtualization (AMD-V)
-    - CPU flag is `svm` (Secure Virtual Machine).
+    - CPU flag is **`svm`** (_Secure Virtual Machine_).
 
 ---
 
@@ -66,32 +62,96 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 - Run the following command to check:
 
 ```shell
-egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+egrep --count '^flags.*(vmx|svm)' /proc/cpuinfo
 ```
 
-- Nothing printed? your system does not support the relevant virtualization extensions. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.
+- If output is 0, your system does not support the relevant virtualization extensions _or_ disabled on BIOS. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.
 
 ---
 
-## Installing Virtualization Software
+## Installing Virtualization Packages
+
+- [Fedora](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/#installing-virtualization-software)
 
 ```shell
-sudo dnf group install \
+dnf groupinfo virtualization
+
+dnf group install \
     virtualization \
     --with-optional \
     --assumeyes
 ```
 
+---
+
+## Enable **`libvirtd`** Service
+
+- The **`libvirtd`** service is a server side daemon and driver required to manage the virtualization capabilities of the KVM hypervisor.
+
+- Start **`libvirtd`** service and enable it on boot.
+
 ```shell
-sudo apt-get install \
-    bridge-utils cpu-checker libvirt-clients \
-    libvirt-daemon qemu qemu-kvm \
-    --assume-yes
+systemctl start libvirtd
+
+systemctl enable libvirtd
 ```
 
 ---
 
-## Slide 3
+## Verify KVM Kernel Modules
+
+- Verify that the KVM kernel modules are properly loaded.
+
+```shell
+lsmod | egrep 'kvm_*(amd|intel)'
+```
+
+- If output contains **kvm_intel** or **kvm_amd**, KVM is properly configured.
+
+---
+
+## Slide 4
+
+```shell
+virt-install \
+    --name ubuntu-guest \
+    --os-variant ubuntu22.04 \
+    --vcpus 2 \
+    --ram 2048 \
+    --location http://ftp.ubuntu.com/ubuntu/dists/jammy/main/installer-amd64/ \
+    --network bridge=virbr0,model=virtio \
+    --graphics none \
+    --extra-args='console=ttyS0,115200n8 serial'
+```
+
+---
+
+## Slide 4
+
+```shell
+qemu-img create \
+    -f qcow2 \
+    /var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-36.qcow2 \
+    20480
+```
+
+```shell
+virt-install \
+    --name Fedora36 \
+    --description 'Fedora 36 Workstation' \
+    --ram 4096 \
+    --vcpus 2 \
+    --disk path=/var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-Guest.qcow2,size=20 \
+    --os-variant fedora36 \
+    --network bridge=virbr0 \
+    --graphics vnc,listen=127.0.0.1,port=5901 \
+    --cdrom /var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-Live-x86_64-36-1.5.iso \
+    --noautoconsole
+```
+
+---
+
+## Slide 4
 
 Text
 
@@ -112,6 +172,7 @@ Text
 - <https://www.intel.com/content/www/us/en/virtualization/virtualization-technology/intel-virtualization-technology.html>
 - <https://wiki.qemu.org/Features/TCG>
 - <https://virt-manager.org/>
+- <https://libvirt.org/docs.html>
 
 ---
 
