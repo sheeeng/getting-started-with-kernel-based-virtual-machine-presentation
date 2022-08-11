@@ -110,30 +110,73 @@ lsmod | egrep 'kvm_*(amd|intel)'
 
 ---
 
-## Slide 4
+## Append Groups to Manage KVM
+
+- Append current user to `kvm` and `libvirt` groups to create and manage virtual machines.
 
 ```shell
-virt-install \
-    --name ubuntu-guest \
-    --os-variant ubuntu22.04 \
-    --vcpus 2 \
-    --ram 2048 \
-    --location http://ftp.ubuntu.com/ubuntu/dists/jammy/main/installer-amd64/ \
-    --network bridge=virbr0,model=virtio \
-    --graphics none \
-    --extra-args='console=ttyS0,115200n8 serial'
+usermod --append --groups=kvm,libvirt ${USER}
+
+cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 ```
+
+- Log out and log in again to apply this modification.
 
 ---
 
-## Slide 4
+## Install Virtual Machine / Terminal
+
+- Launch Debian instance on KVM. :heart:
 
 ```shell
-qemu-img create \
-    -f qcow2 \
-    /var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-36.qcow2 \
-    20480
+virt-install \
+    --name Debian \
+    --description 'Debian' \
+    --vcpus 1 \
+    --ram 1024 \
+    --location https://ftp.debian.org/debian/dists/stable/main/installer-amd64 \
+    --os-variant debian11 \
+    --network bridge=virbr0 \
+    --graphics vnc,listen=127.0.0.1,port=5901 \
+    --noreboot \
+    --extra-args 'console=ttyS0,115200n8 serial'
 ```
+
+<!--
+Some speaker notes here that might be useful.
+
+Opens an interactive console that you can use to manually install the guest virtual machine.
+-->
+
+---
+
+## Install Virtual Machine / Terminal
+
+- Launch Ubuntu instance on KVM. :broken_heart:
+
+```shell
+virt-install \
+    --name Ubuntu \
+    --os-variant ubuntu20.04 \
+    --vcpus 1 \
+    --ram 1024 \
+    --location http://ftp.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/ \
+    --network bridge=virbr0,model=virtio \
+    --graphics vnc,listen=127.0.0.1,port=5902 \
+    --extra-args='console=ttyS0,115200n8 serial'
+```
+
+<!--
+Some speaker notes here that might be useful.
+
+Opens an interactive console that you can use to manually install the guest virtual machine.
+-->
+
+---
+
+## Install Virtual Machine / Terminal
+
+- Launch Ubuntu instance on KVM. :broken_heart:
 
 ```shell
 virt-install \
@@ -144,7 +187,7 @@ virt-install \
     --disk path=/var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-Guest.qcow2,size=20 \
     --os-variant fedora36 \
     --network bridge=virbr0 \
-    --graphics vnc,listen=127.0.0.1,port=5901 \
+    --graphics vnc,listen=127.0.0.1,port=5903 \
     --cdrom /var/lib/libvirt/images/Fedora-Workstation-36/Fedora-Workstation-Live-x86_64-36-1.5.iso \
     --noautoconsole
 ```
@@ -173,6 +216,7 @@ Text
 - <https://wiki.qemu.org/Features/TCG>
 - <https://virt-manager.org/>
 - <https://libvirt.org/docs.html>
+- <https://wiki.debian.org/KVM>
 
 ---
 
