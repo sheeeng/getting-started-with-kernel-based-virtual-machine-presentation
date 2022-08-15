@@ -171,9 +171,9 @@ lsmod | egrep 'kvm_*(amd|intel)'
 - Append current user to `kvm` and `libvirt` groups to create and manage virtual machines.
 
 ```shell
-usermod --append --groups=kvm,libvirt ${USER}
+usermod --append --groups=kvm,libvirt,qemu ${USER}
 
-cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
+cat /etc/group | egrep "^(kvm|libvirt|qemu).*${USER}"
 ```
 
 - Log out and log in again to apply this modification.
@@ -474,6 +474,10 @@ EDD means BIOS Enhanced Disk Device Services (EDD)
 
 ---
 
+## Error: Permission Denied Default Pool
+
+- <https://serverfault.com/a/840520>
+
 ## Slide Title
 
 Text Content
@@ -514,6 +518,9 @@ Text Content
 - <https://virt-manager.org/>
 - <https://libvirt.org/docs.html>
 - <https://wiki.debian.org/KVM>
+- <https://wiki.debian.org/DebianInstaller/Preseed>
+- <https://hands.com/d-i/>
+- <https://www.debian.org/releases/stable/example-preseed.txt>
 
 ---
 
