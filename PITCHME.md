@@ -171,9 +171,9 @@ lsmod | egrep 'kvm_*(amd|intel)'
 - Append current user to `kvm` and `libvirt` groups to create and manage virtual machines.
 
 ```shell
-usermod --append --groups=kvm,libvirt,qemu ${USER}
+usermod --append --groups=kvm,libvirt ${USER}
 
-cat /etc/group | egrep "^(kvm|libvirt|qemu).*${USER}"
+cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 ```
 
 - Log out and log in again to apply this modification.
