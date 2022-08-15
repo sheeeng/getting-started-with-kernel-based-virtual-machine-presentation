@@ -394,14 +394,14 @@ Domain 'Debian' has been undefined
 $ virt-install --os-variant list
 
 $ virsh nodeinfo
-
 $ virsh edit
-
 $ virt-df
-
 $ virt-top
-
 $ virt-viewer
+
+$ virsh pool-list --all
+$ virsh pool-destroy
+$ virsh pool-undefine
 ```
 
 ---
