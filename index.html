@@ -179,9 +179,9 @@ systemctl enable libvirtd
 <ul>
 <li>Append current user to <code>kvm</code> and <code>libvirt</code> groups to create and manage virtual machines.</li>
 </ul>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell">usermod --append --groups=kvm,libvirt,qemu ${USER}
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell">usermod --append --groups=kvm,libvirt ${USER}
 
-cat /etc/group | egrep &quot;^(kvm|libvirt|qemu).*${USER}&quot;
+cat /etc/group | egrep &quot;^(kvm|libvirt).*${USER}&quot;
 </code></pre>
 <ul>
 <li>Log out and log in again to apply this modification.</li>
