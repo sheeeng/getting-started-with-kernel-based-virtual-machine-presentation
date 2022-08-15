@@ -179,9 +179,9 @@ systemctl enable libvirtd
 <ul>
 <li>Append current user to <code>kvm</code> and <code>libvirt</code> groups to create and manage virtual machines.</li>
 </ul>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell">usermod --append --groups=kvm,libvirt ${USER}
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-shell">usermod --append --groups=kvm,libvirt,qemu ${USER}
 
-cat /etc/group | egrep &quot;^(kvm|libvirt).*${USER}&quot;
+cat /etc/group | egrep &quot;^(kvm|libvirt|qemu).*${USER}&quot;
 </code></pre>
 <ul>
 <li>Log out and log in again to apply this modification.</li>
@@ -405,6 +405,10 @@ Probing EDD (edd=off to disable)... ok
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-header="**Getting Started with Kernel-based Virtual Machine (KVM)** / Open Source On-Ramp / **Open Source Summit Europe 2022**" data-footer="Leonard Sheng Sheng Lee / Made with [Marp](https://marp.app/) / Participants Agree to Abide by [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)" data-paginate="true" data-background-image="url('https://marp.app/assets/hero-background.svg')" data-theme="uncover" data-marpit-pagination="33" data-marpit-pagination-total="40" style="--header:**Getting Started with Kernel-based Virtual Machine (KVM)** / Open Source On-Ramp / **Open Source Summit Europe 2022**;--footer:Leonard Sheng Sheng Lee / Made with [Marp](https://marp.app/) / Participants Agree to Abide by [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/);--paginate:true;--background-image:url('https://marp.app/assets/hero-background.svg');--theme:uncover;background-image:url('https://marp.app/assets/hero-background.svg');background-position:center;background-repeat:no-repeat;background-size:cover;">
 <header><strong>Getting Started with Kernel-based Virtual Machine (KVM)</strong> / Open Source On-Ramp / <strong>Open Source Summit Europe 2022</strong></header>
+<h2>Error: Permission Denied Default Pool</h2>
+<ul>
+<li><a href="https://serverfault.com/a/840520">https://serverfault.com/a/840520</a></li>
+</ul>
 <h2>Slide Title</h2>
 <p>Text Content</p>
 <footer>Leonard Sheng Sheng Lee / Made with <a href="https://marp.app/">Marp</a> / Participants Agree to Abide by <a href="https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/">Code of Conduct</a></footer>
@@ -447,6 +451,9 @@ Probing EDD (edd=off to disable)... ok
 <li><a href="https://virt-manager.org/">https://virt-manager.org/</a></li>
 <li><a href="https://libvirt.org/docs.html">https://libvirt.org/docs.html</a></li>
 <li><a href="https://wiki.debian.org/KVM">https://wiki.debian.org/KVM</a></li>
+<li><a href="https://wiki.debian.org/DebianInstaller/Preseed">https://wiki.debian.org/DebianInstaller/Preseed</a></li>
+<li><a href="https://hands.com/d-i/">https://hands.com/d-i/</a></li>
+<li><a href="https://www.debian.org/releases/stable/example-preseed.txt">https://www.debian.org/releases/stable/example-preseed.txt</a></li>
 </ul>
 <footer>Leonard Sheng Sheng Lee / Made with <a href="https://marp.app/">Marp</a> / Participants Agree to Abide by <a href="https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/">Code of Conduct</a></footer>
 </section>
