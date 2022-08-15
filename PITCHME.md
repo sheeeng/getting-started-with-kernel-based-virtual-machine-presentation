@@ -52,7 +52,7 @@ At the end of this tutorial, participants are expected to know how to check if K
 
 ---
 
-## Overview of Kernel-based Virtual Machine (KVM)
+## Overview of Kernel-based Virtual Machine (KVM) (Part 1/2)
 
 - An open source virtualization technology built into Linux®. Turn Linux into a hypervisor.
 - Allows a host machine to run multiple, isolated virtual environments called guests or virtual machines (VMs).
@@ -66,7 +66,7 @@ The default virtualization technology supported in Ubuntu is KVM. For Intel and 
 
 ---
 
-## Overview of Kernel-based Virtual Machine (KVM)
+## Overview of Kernel-based Virtual Machine (KVM) (Part 2/2)
 
 - QEMU (Quick Emulator) is part of the KVM experience being the userspace backend for it, but it also can be used for hardware without virtualization extensions by using its Tiny Code Generator (TCG) mode.
 
@@ -78,7 +78,7 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 ---
 
-## Hardware Virtualization Support
+## Hardware Virtualization Support (Part 1/2)
 
 - KVM requires a CPU with virtualization extensions.
   - Intel® Virtualization Technology (Intel® VT)
@@ -88,7 +88,7 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 ---
 
-## Hardware Virtualization Support
+## Hardware Virtualization Support (Part 2/2)
 
 - Run the following command to check:
 
@@ -118,7 +118,7 @@ dnf group install \
 
 ## Installing Virtualization Packages (Ubuntu)
 
-```shell
+```console
 # apt-get install \
     bridge-utils \
     qemu-kvm \
@@ -129,7 +129,7 @@ dnf group install \
 
 ## Installing Virtualization Packages (CentOS)
 
-```shell
+```console
 # yum install \
     libvirt \
     qemu-kvm \
@@ -177,6 +177,20 @@ cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 ```
 
 - Log out and log in again to apply this modification.
+
+---
+
+## Update QEMU Configuration
+
+```console
+# cp /etc/libvirt/qemu.conf /etc/libvirt/qemu.conf.original
+# sed --in-place \
+    "s,\#user = \"root\",\#user = \"${USER}\",g" /etc/libvirt/qemu.conf
+# sed --in-place \
+    "s,\#group = \"root\",\#group = \"libvirt\",g" /etc/libvirt/qemu.conf
+# diff --unified /etc/libvirt/qemu.conf.original /etc/libvirt/qemu.conf
+systemctl restart libvirtd
+```
 
 ---
 
@@ -474,13 +488,35 @@ EDD means BIOS Enhanced Disk Device Services (EDD)
 
 ---
 
-## Error: Permission Denied Default Pool
+## Error: Failed to Get Domain
 
-- <https://serverfault.com/a/840520>
+- [Ensure](https://serverfault.com/a/840520>) that specified storage pool has correct permissions and path.
 
-## Slide Title
+```console
+$ virsh pool-list --all
+$ virsh pool-info default
+$ virsh pool-dumpxml default
+$ virsh pool-dumpxml default \
+    | xmlstarlet sel --template --copy-of "/pool/target"
+$ virsh pool-dumpxml default \
+    | xmlstarlet sel --template --value-of "/pool/target/path"
 
-Text Content
+```
+
+---
+
+## Error: Cannot Access Storage File (UID:107, GID:107)
+
+```console
+# cp /etc/libvirt/qemu.conf /etc/libvirt/qemu.conf.original
+# sed --in-place \
+    "s,\#user = \"root\",\#user = \"${USER}\",g" \
+    /etc/libvirt/qemu.conf
+# sed --in-place \
+    "s,\#group = \"root\",\#group = \"libvirt\",g" \
+    /etc/libvirt/qemu.conf
+# systemctl restart libvirtd
+```
 
 ---
 
@@ -517,6 +553,14 @@ Text Content
 - <https://wiki.qemu.org/Features/TCG>
 - <https://virt-manager.org/>
 - <https://libvirt.org/docs.html>
+- <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_virtualization/index>
+- <https://www.linuxhowto.net/solved-cannot-access-storage-file-permission-denied-error-in-kvm-libvirt/>
+- <https://www.redhat.com/sysadmin/virsh-subcommands>
+
+---
+
+### Links (Part 3)
+
 - <https://wiki.debian.org/KVM>
 - <https://wiki.debian.org/DebianInstaller/Preseed>
 - <https://hands.com/d-i/>
