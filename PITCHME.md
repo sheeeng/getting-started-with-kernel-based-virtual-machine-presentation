@@ -1,7 +1,7 @@
 ---
 title: 'Getting Started with Kernel-based Virtual Machine (KVM)'
 description: 'Presentation slides for Getting Started with Kernel-based Virtual Machine (KVM) workshop at Open Source Summit Europe 2022.'
-header: '**[Getting Started with Kernel-based Virtual Machine (KVM)](https://osseu2022.sched.com/event/15z24)** / Open Source On-Ramp / **Open Source Summit Europe 2022**'
+header: '**[Getting Started with Kernel-based Virtual Machine (KVM)](https://osseu2022.sched.com/event/15z24)** / [Open Source On-Ramp](https://osseu2022.sched.com/overview/type/Open+Source+On-Ramp) / **[Open Source Summit Europe 2022](https://osseu2022.sched.com/)**'
 author: 'Leonard Sheng Sheng Lee'
 footer: '[Leonard Sheng Sheng Lee](https://github.com/sheeeng) / Made with [Marp](https://marp.app/) / Participants Agree to Abide by [Code of Conduct](https://events.linuxfoundation.org/open-source-summit-europe/attend/code-of-conduct/)'
 keywords: linux,kvm,virtualization,marp,marp-cli,slide
