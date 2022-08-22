@@ -17,7 +17,7 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
-## Abstract (Part 1/6)
+## Abstract (Part 1/5)
 
 - Want to get started with Kernel-based Virtual Machine (KVM)?
 - Want to run a virtual machine on your system using open source technologies?
@@ -25,24 +25,25 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
-## Abstract (Part 2/6)
+## Abstract (Part 2/5)
 
 In this tutorial, Leonard will be teaching people to familiarize themselves with KVM technologies, which allows virtual machines to run with near native performance.
 
 ---
-## Abstract (Part 4/6)
+
+## Abstract (Part 3/5)
 
 Participants must have a basic knowledge on how Linux operating system works, and must have a Linux based operating system running natively on a laptop in order to join this tutorial. We will be focusing on doing some tasks of creating, accessing, modifying, and deleting KVMs, from both graphical user interface (GUI) and CLI.
 
 ---
 
-## Abstract (Part 5/6)
+## Abstract (Part 4/5)
 
 We will busy with these virt-manager tools in the tutorial. - `virt-install` is a command line tool which provides an easy way to provision operating systems into virtual machines. - `virt-viewer` is a lightweight UI interface for interacting with the graphical display of virtualized guest OS. It can display VNC or SPICE, and uses libvirt to lookup the graphical connection details.
 
 ---
 
-## Abstract (Part 6/6)
+## Abstract (Part 5/5)
 
 At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manager KVMs with confident, from both GUI and CLI.
 
@@ -446,7 +447,7 @@ Domain 'Ubuntu' has been undefined
 
 ---
 
-## Error: Failed to Get MTU of Bridge
+### Error: Failed to Get MTU of Bridge
 
 ```text
 stderr=failed to get mtu of bridge `virbr0': No such device
@@ -467,7 +468,7 @@ MTU means Maximum Transmission Unit.
 
 ---
 
-## Error: Hangs on Probing EDD
+### Error: Hangs on Probing EDD
 
 ```text
 Booting from Hard disk....
@@ -488,7 +489,7 @@ EDD means BIOS Enhanced Disk Device Services (EDD)
 
 ---
 
-## Error: Failed to Get Domain
+### Error: Failed to Get Domain
 
 - [Ensure](https://serverfault.com/a/840520>) that specified storage pool has correct permissions and path.
 
@@ -505,7 +506,7 @@ $ virsh pool-dumpxml default \
 
 ---
 
-## Error: Cannot Access Storage File (UID:107, GID:107)
+### Error: Cannot Access Storage File (UID:107, GID:107)
 
 ```console
 # cp /etc/libvirt/qemu.conf /etc/libvirt/qemu.conf.original
