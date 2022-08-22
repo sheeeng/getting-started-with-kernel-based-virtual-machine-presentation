@@ -91,8 +91,6 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 ## Hardware Virtualization Support (Part 2/2)
 
-- Run the following command to check:
-
 ```shell
 egrep --count '^flags.*(vmx|svm)' /proc/cpuinfo
 ```
