@@ -55,3 +55,10 @@
 
 
 ```
+
+<!--
+Some speaker notes here that might be useful.
+
+Hints:
+https://linuxconfig.org/how-to-use-bridged-networking-with-libvirt-and-kvm
+-->
