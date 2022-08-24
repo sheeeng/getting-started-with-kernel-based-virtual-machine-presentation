@@ -539,9 +539,39 @@ $ virsh pool-dumpxml default \
 
 ---
 
+### Error: Network 'Default' is not Active
+
+```console
+# virsh net-list --all
+Name                 State      Autostart     Persistent
+----------------------------------------------------------
+```
+
+<!--
+Some speaker notes here that might be useful.
+
+https://blog.programster.org/kvm-missing-default-network
+-->
+
+---
+
 ## Task 3
 
-### Manage KVM using Graphical User Interface (GUI).
+### Manage KVM using Graphical User Interface (GUI)
+
+`virt-manager`
+
+---
+
+## Bonus Task: Unattended Install
+
+- [Preseeding (Debian-based Linux Distributions)](https://wiki.debian.org/DebianInstaller/Preseed) or [Kickstart (Red Hat-based Linux Distributions)](https://docs.fedoraproject.org/en-US/fedora/latest/install-guide/advanced/Kickstart_Installations/) provides a way to set answers to questions asked during the installation process, without having to manually enter the answers while the installation is running.
+
+---
+
+## Bonus Task: Bridged Networking
+
+- The standard [NAT forwarding (aka. "default virtual network")](https://wiki.libvirt.org/page/Networking#NAT_forwarding_.28aka_.22virtual_networks.22.29) based connectivity is useful for quick & easy deployments, or on machines with dynamic/sporadic networking connectivity. Advanced users will want to use [Bridged networking (aka. "shared physical device")](https://wiki.libvirt.org/page/Networking#Bridged_networking_.28aka_.22shared_physical_device.22.29), where the guest is connected directly to the LAN.
 
 ---
 
