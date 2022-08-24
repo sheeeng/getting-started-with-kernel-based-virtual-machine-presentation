@@ -17,6 +17,14 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
+## Agenda
+
+- Step 1 : Setup Kernal-based Virtual Machine (KVM).
+- Step 2 : Manage KVM using Command Line Interface (CLI).
+- Step 3 : Manage KVM using Graphical User Interface (GUI).
+
+---
+
 ## Abstract (Part 1/5)
 
 - Want to get started with Kernel-based Virtual Machine (KVM)?
