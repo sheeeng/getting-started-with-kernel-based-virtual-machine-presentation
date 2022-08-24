@@ -17,11 +17,11 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
-## Agenda
+## Agenda / Tasks / 90 Minutes
 
-- Step 1 : Setup Kernal-based Virtual Machine (KVM).
-- Step 2 : Manage KVM using Command Line Interface (CLI).
-- Step 3 : Manage KVM using Graphical User Interface (GUI).
+- Setup Kernel-based Virtual Machine (KVM)
+- Manage KVM using Command Line Interface (CLI)
+- Manage KVM using Graphical User Interface (GUI)
 
 ---
 
@@ -84,6 +84,12 @@ Some speaker notes here that might be useful.
 
 The Tiny Code Generator (TCG) is the core binary translation engine that is responsible for QEMU ability to emulate foreign processors on any given supported host.
 -->
+
+---
+
+## Task 1
+
+### Setup Kernel-based Virtual Machine (KVM)
 
 ---
 
@@ -198,6 +204,12 @@ cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 # diff --unified /etc/libvirt/qemu.conf.original /etc/libvirt/qemu.conf
 systemctl restart libvirtd
 ```
+
+---
+
+## Task 2
+
+### Manage KVM using Command Line Interface (CLI)
 
 ---
 
@@ -527,21 +539,9 @@ $ virsh pool-dumpxml default \
 
 ---
 
-## Slide Title
+## Task 3
 
-Text Content
-
----
-
-## Slide Title
-
-Text Content
-
----
-
-## Slide Title
-
-Text Content
+### Manage KVM using Graphical User Interface (GUI).
 
 ---
 
