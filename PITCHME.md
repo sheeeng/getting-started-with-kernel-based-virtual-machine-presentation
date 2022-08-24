@@ -539,13 +539,20 @@ $ virsh pool-dumpxml default \
 
 ---
 
-### Error: Network 'Default' is not Active
+### Error: Missing 'Default' Network?
 
 ```console
-# virsh net-list --all
-Name                 State      Autostart     Persistent
-----------------------------------------------------------
+$ virsh net-list --all
+ Name   State   Autostart   Persistent
+----------------------------------------
+
+$ sudo virsh net-list --all
+ Name      State    Autostart   Persistent
+--------------------------------------------
+ default   active   yes         yes
 ```
+
+[Read this post if default network is still missing.](https://blog.programster.org/kvm-missing-default-network)
 
 <!--
 Some speaker notes here that might be useful.
@@ -567,11 +574,44 @@ https://blog.programster.org/kvm-missing-default-network
 
 - [Preseeding (Debian-based Linux Distributions)](https://wiki.debian.org/DebianInstaller/Preseed) or [Kickstart (Red Hat-based Linux Distributions)](https://docs.fedoraproject.org/en-US/fedora/latest/install-guide/advanced/Kickstart_Installations/) provides a way to set answers to questions asked during the installation process, without having to manually enter the answers while the installation is running.
 
+<!--
+Some speaker notes here that might be useful.
+
+Hints:
+https://github.com/sheeeng/debian-vm-install/tree/debian10
+https://github.com/sheeeng/kickstart-fedora-workstation
+-->
+
+
 ---
 
 ## Bonus Task: Bridged Networking
 
 - The standard [NAT forwarding (aka. "default virtual network")](https://wiki.libvirt.org/page/Networking#NAT_forwarding_.28aka_.22virtual_networks.22.29) based connectivity is useful for quick & easy deployments, or on machines with dynamic/sporadic networking connectivity. Advanced users will want to use [Bridged networking (aka. "shared physical device")](https://wiki.libvirt.org/page/Networking#Bridged_networking_.28aka_.22shared_physical_device.22.29), where the guest is connected directly to the LAN.
+
+<!--
+Some speaker notes here that might be useful.
+
+```console
+$ sudo virsh net-dumpxml default
+<network>
+  <name>default</name>
+  <uuid>258ae95f-f434-45e8-aa8c-09fb2d9735d0</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:a8:72:47'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+```
+-->
 
 ---
 
@@ -602,6 +642,7 @@ https://blog.programster.org/kvm-missing-default-network
 - <https://wiki.debian.org/DebianInstaller/Preseed>
 - <https://hands.com/d-i/>
 - <https://www.debian.org/releases/stable/example-preseed.txt>
+- <https://blog.programster.org/kvm-missing-default-network>
 
 ---
 
