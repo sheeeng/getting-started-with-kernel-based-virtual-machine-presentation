@@ -53,7 +53,7 @@ We will busy with these virt-manager tools in the tutorial. - `virt-install` is 
 
 ## Abstract (Part 5/5)
 
-At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manager KVMs with confident, from both GUI and CLI.
+At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manage KVMs with confident, from both GUI and CLI.
 
 ---
 
@@ -198,10 +198,14 @@ cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 ```console
 # cp /etc/libvirt/qemu.conf /etc/libvirt/qemu.conf.original
 # sed --in-place \
-    "s,\#user = \"root\",\#user = \"${USER}\",g" /etc/libvirt/qemu.conf
+    "s,\#user = \"root\",\#user = \"${USER}\",g" \
+    /etc/libvirt/qemu.conf
 # sed --in-place \
-    "s,\#group = \"root\",\#group = \"libvirt\",g" /etc/libvirt/qemu.conf
-# diff --unified /etc/libvirt/qemu.conf.original /etc/libvirt/qemu.conf
+    "s,\#group = \"root\",\#group = \"libvirt\",g" \
+    /etc/libvirt/qemu.conf
+# diff --unified \
+    /etc/libvirt/qemu.conf.original \
+    /etc/libvirt/qemu.conf
 systemctl restart libvirtd
 ```
 
@@ -566,11 +570,13 @@ https://blog.programster.org/kvm-missing-default-network
 
 ### Manage KVM using Graphical User Interface (GUI)
 
-`virt-manager`
+Run `virt-manager`.
+
+<https://virt-manager.org/screenshots/>
 
 ---
 
-## Bonus Task: Unattended Install
+## Bonus: Unattended Install
 
 - [Preseeding (Debian-based Linux Distributions)](https://wiki.debian.org/DebianInstaller/Preseed) or [Kickstart (Red Hat-based Linux Distributions)](https://docs.fedoraproject.org/en-US/fedora/latest/install-guide/advanced/Kickstart_Installations/) provides a way to set answers to questions asked during the installation process, without having to manually enter the answers while the installation is running.
 
@@ -582,12 +588,17 @@ https://github.com/sheeeng/debian-vm-install/tree/debian10
 https://github.com/sheeeng/kickstart-fedora-workstation
 -->
 
-
 ---
 
-## Bonus Task: Bridged Networking
+## Bonus: Assign Host USB Device
+
+<https://www.linux-kvm.org/page/USB_Host_Device_Assigned_to_Guest>
+
+<!--
+## Bonus: Bridged Networking
 
 - The standard [NAT forwarding (aka. "default virtual network")](https://wiki.libvirt.org/page/Networking#NAT_forwarding_.28aka_.22virtual_networks.22.29) based connectivity is useful for quick & easy deployments, or on machines with dynamic/sporadic networking connectivity. Advanced users will want to use [Bridged networking (aka. "shared physical device")](https://wiki.libvirt.org/page/Networking#Bridged_networking_.28aka_.22shared_physical_device.22.29), where the guest is connected directly to the LAN.
+- -->
 
 <!--
 Some speaker notes here that might be useful.
@@ -615,34 +626,9 @@ $ sudo virsh net-dumpxml default
 
 ---
 
-## Links (Part 1)
+## Related Links
 
-- <https://osseu2022.sched.com/event/15z24/getting-started-with-kernel-based-virtual-machine-kvm-leonard-sheng-sheng-lee-computas>
-- <https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/>
-- <https://help.ubuntu.com/community/KVM/Installation>
-- <https://ubuntu.com/blog/kvm-hyphervisor>
-- <https://www.intel.com/content/www/us/en/virtualization/virtualization-technology/intel-virtualization-technology.html>
-
----
-
-### Links (Part 2)
-
-- <https://wiki.qemu.org/Features/TCG>
-- <https://virt-manager.org/>
-- <https://libvirt.org/docs.html>
-- <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/configuring_and_managing_virtualization/index>
-- <https://www.linuxhowto.net/solved-cannot-access-storage-file-permission-denied-error-in-kvm-libvirt/>
-- <https://www.redhat.com/sysadmin/virsh-subcommands>
-
----
-
-### Links (Part 3)
-
-- <https://wiki.debian.org/KVM>
-- <https://wiki.debian.org/DebianInstaller/Preseed>
-- <https://hands.com/d-i/>
-- <https://www.debian.org/releases/stable/example-preseed.txt>
-- <https://blog.programster.org/kvm-missing-default-network>
+<https://gist.github.com/sheeeng/6f43d75d6d58fee44690208cbe6c5dd9>
 
 ---
 
