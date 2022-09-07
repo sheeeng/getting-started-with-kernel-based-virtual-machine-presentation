@@ -602,7 +602,7 @@ Domain 'Debian' has been undefined
 
 ---
 
-### Helpful Commands
+### Related `vir*` Commands
 
 ```shell
 $ virt-install --os-variant list
