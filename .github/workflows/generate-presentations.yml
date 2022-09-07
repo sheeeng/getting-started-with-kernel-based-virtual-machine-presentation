@@ -1,0 +1,53 @@
+name: Generate PDF
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Load .nvmrc File Content
+        id: node_version
+        run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.node_version.outputs.nvmrc }}
+
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies and Puppeteer
+        run: |
+          npm ci
+          sudo apt-get install libgbm-dev
+          npm install puppeteer --no-save
+
+      - name: Run Marp CLI
+        run: |
+          npm install --global yarn
+          npm install --global @marp-team/marp-cli
+          marp PITCHME.md --output PITCHME.html
+          marp PITCHME.md --output PITCHME.pdf
+          marp PITCHME.md --output PITCHME.pptx
+
+      - name: Commit Generated Presentations
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          git add PITCHME.{html,pdf,pptx}
+          git commit --message "automated commit"
+          git push
