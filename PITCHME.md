@@ -20,8 +20,9 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 ## Agenda / Tasks / 90 Minutes
 
 - Setup Kernel-based Virtual Machine (KVM)
-- Manage KVM using Command Line Interface (CLI)
-- Manage KVM using Graphical User Interface (GUI)
+- Manage KVM Using:
+  - Command Line Interface (CLI)
+  - Graphical User Interface (GUI)
 
 ---
 
@@ -215,9 +216,11 @@ systemctl restart libvirtd
 
 ### Manage KVM using Command Line Interface (CLI)
 
+- [Install Debian from Network](#22).
+
 ---
 
-## Install Debian from Network
+#### Install Debian from Network
 
 ```shell
 $ virt-install \
@@ -246,7 +249,181 @@ This option tells the kernel to use ttyS0 (the first serial port), with settings
 
 ---
 
-## Install Ubuntu from ISO Image
+### Guest Virtual Machine States and Types (Part 1/2)
+
+Several `virsh` commands are affected by the state of the guest virtual machine:
+- Transient (A transient guest does not survive reboot.)
+- Persistent (A persistent guest virtual machine survives reboot and lasts until it is deleted.)
+
+---
+
+### Guest Virtual Machine States and Types (Part 2/2)
+
+During the life cycle of a virtual machine, `libvirt` will classify the guest as any of the following states:
+
+`Undefined`, `Shut off`, `Running`, `Paused`, `Saved`
+
+<!--
+Some speaker notes here that might be useful.
+
+During the life cycle of a virtual machine, libvirt will classify the guest as any of the following states:
+Undefined - This is a guest virtual machine that has not been defined or created. As such, libvirt is unaware of any guest in this state and will not report about guest virtual machines in this state.
+Shut off - This is a guest virtual machine which is defined, but is not running. Only persistent guests can be considered shut off. As such, when a transient guest virtual machine is put into this state, it ceases to exist.
+Running - The guest virtual machine in this state has been defined and is currently working. This state can be used with both persistent and transient guest virtual machines.
+Paused - The guest virtual machine's execution on the hypervisor has been suspended, or its state has been temporarily stored until it is resumed. Guest virtual machines in this state are not aware they have been suspended and do not notice that time has passed when they are resumed.
+Saved - This state is similar to the paused state, however the guest virtual machine's configuration is saved to persistent storage. Any guest virtual machine in this state is not aware it is paused and does not notice that time has passed once it has been restored.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-managing_guest_virtual_machines_with_virsh#domain-states
+-->
+
+---
+
+### Display `virsh` Version
+
+`virsh version`
+`virsh version --daemon`
+
+<!--
+Some speaker notes here that might be useful.
+
+The virsh version command displays the current libvirt version and displays information about the local virsh client.
+
+The virsh version --daemon is useful for getting information about the libvirtd version and package information, including information about the libvirt daemon that is running on the host.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-version#doc-wrapper
+-->
+---
+
+### Connect to Hypervisor (Part 1/2)
+
+`virsh connect [hostname-or-URI] [--readonly]`
+
+The most commonly used URIs are:
+
+`qemu:///system`, `qemu:///session`, `lxc:///`
+<!--
+Some speaker notes here that might be useful.
+
+The most commonly used URIs are:
+qemu:///system - connects locally as the root user to the daemon supervising guest virtual machines on the KVM hypervisor.
+qemu:///session - connects locally as a user to the user's set of guest local machines using the KVM hypervisor.
+lxc:/// - connects to a local Linux container.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-connect#doc-wrapper
+-->
+---
+
+### Connect to Hypervisor (Part 2/2)
+
+For example, establish a session to connect to your set of guest virtual machines (VMs), with you as the local user:
+
+`virsh connect qemu:///session`
+
+<!--
+Some speaker notes here that might be useful.
+
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-connect#doc-wrapper
+-->
+
+---
+
+### Display Host Physical Machine Name
+
+`virsh domhostname <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-version
+-->
+
+---
+
+### Display Guest VM General Information
+
+`virsh dominfo <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#sect-virshdominfo
+-->
+
+---
+
+### Display Guest VM's ID Number
+
+`virsh domid <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#sect-virsh-domid
+-->
+
+---
+
+### Abort Running Jobs on a Guest VM
+
+`virsh domjobabort <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#virsh-domjobabort
+-->
+---
+
+### List Statistic about Guest VM
+
+`virsh domjobinfo <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#virsh-domjobinfo
+-->
+
+---
+
+### Display Guest Virtual Machine's Name
+
+`virsh domname <Guest_VM_ID>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#sect-virsh-domname
+-->
+
+---
+
+### Display Virtual Machine's State
+
+`virsh domstate <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#sect-virsh-domstate
+-->
+
+---
+
+### Display Connection State to the Virtual Machine
+
+`virsh domcontrol <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#sect-virsh-domcontrol
+-->
+
+---
+
+#### Extra: Install Ubuntu from ISO Image
 
 ```shell
 $ virt-install \
@@ -261,7 +438,7 @@ $ virt-viewer --connect qemu:///session --wait Ubuntu
 
 ---
 
-## Install Ubuntu from Network
+#### Extra: Install Ubuntu from Network
 
 ```shell
 $ virt-install \
@@ -285,7 +462,7 @@ Opens an interactive console that you can use to manually install the guest virt
 
 ---
 
-## Install Fedora from ISO Image
+#### Extra: Install Fedora from ISO Image
 
 ```shell
 $ virt-install \
@@ -300,7 +477,7 @@ $ virt-viewer --connect qemu:///session --wait Fedora
 
 ---
 
-## Install Fedora from Network
+#### Extra: Install Fedora from Network
 
 ```shell
 $ virt-install \
@@ -325,7 +502,7 @@ Opens an interactive console that you can use to manually install the guest virt
 
 ---
 
-## Install AlmaLinux from ISO Image
+#### Extra: Install AlmaLinux from ISO Image
 
 ```shell
 $ virt-install \
@@ -340,7 +517,7 @@ $ virt-viewer --connect qemu:///session --wait AlmaLinux
 
 ---
 
-### Install AlmaLinux from Network
+#### Extra: Install AlmaLinux from Network
 
 ```shell
 $ virt-install \
@@ -367,7 +544,7 @@ Opens an interactive console that you can use to manually install the guest virt
 
 ---
 
-## Install CentOS from ISO Image
+#### Extra: Install CentOS from ISO Image
 
 ```shell
 $ virt-install \
@@ -382,7 +559,7 @@ $ virt-viewer --connect qemu:///session --wait CentOS
 
 ---
 
-## Install CentOS from Network
+#### Extra: Install CentOS from Network
 
 ```shell
 $ virt-install \
@@ -410,7 +587,7 @@ Opens an interactive console that you can use to manually install the guest virt
 
 ---
 
-## Delete Virtual Machine
+### Delete Virtual Machine
 
 ```console
 $ virsh shutdown Debian # Graceful Shutown
@@ -570,9 +747,7 @@ https://blog.programster.org/kvm-missing-default-network
 
 ### Manage KVM using Graphical User Interface (GUI)
 
-Run `virt-manager`.
-
-<https://virt-manager.org/screenshots/>
+Use `virt-manager` to create, manage, & delete KVMs.
 
 ---
 
