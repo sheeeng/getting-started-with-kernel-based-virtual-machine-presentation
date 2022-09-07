@@ -192,6 +192,16 @@ cat /etc/group | egrep "^(kvm|libvirt).*${USER}"
 
 - Log out and log in again to apply this modification.
 
+<!--
+Some speaker notes here that might be useful.
+
+Note that this if this command only displays guest virtual machines created by the root user. If it does not display a virtual machine you know you have created, it is probable you did not create the virtual machine as root.
+
+Guests created using the virt-manager interface are by default created by root.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-editing_and_displaying_a_description_and_title_of_a_domain#doc-wrapper
+-->
+
 ---
 
 ## Update QEMU Configuration
@@ -331,8 +341,164 @@ For example, establish a session to connect to your set of guest virtual machine
 <!--
 Some speaker notes here that might be useful.
 
-
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-connect#doc-wrapper
+-->
+
+---
+
+### List Guest VM Connected to Hypervisor
+
+`virsh list --all`
+`virsh list --inactive`
+
+<!--
+Some speaker notes here that might be useful.
+
+Each guest virtual machine is listed with its ID, name, and state.
+
+  Note that this if this command only displays guest virtual machines created by the root user. If it does not display a virtual machine you know you have created, it is probable you did not create the virtual machine as root.
+
+  Guests created using the virt-manager interface are by default created by root.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-editing_and_displaying_a_description_and_title_of_a_domain#doc-wrapper
+-->
+
+---
+
+### Display Information about Hypervisor
+
+`virsh hostname`
+`virsh sysinfo`
+
+<!--
+Some speaker notes here that might be useful.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-editing_and_displaying_a_description_and_title_of_a_domain#doc-wrapper
+-->
+
+---
+
+### Extra: Start Guest Virtual Machine
+
+`virsh start <Guest_VM> [--console] [--paused] [--autodestroy] [--bypass-cache] [--force-boot]`
+
+Starts the `<Guest_VM>` that you already created and is currently in the inactive state.
+
+<!--
+Some speaker notes here that might be useful.
+
+Starts an inactive virtual machine that was already defined but whose state is inactive since its last managed save state or a fresh boot. By default, if the domain was saved by the virsh managedsave command, the domain will be restored to its previous state. Otherwise, it will be freshly booted.
+
+The command can take the following arguments and the name of the virtual machine is required.
+
+  --console - will attach the terminal running virsh to the domain's console device. This is runlevel 3.
+  --paused - if this is supported by the driver, it will start the guest virtual machine in a paused state
+  --autodestroy - the guest virtual machine is automatically destroyed when virsh disconnects
+  --bypass-cache - used if the guest virtual machine is in the managedsave
+  --force-boot - discards any managedsave options and causes a fresh boot to occur
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-starting_a_defined_domain#sect-start-vm
+-->
+
+---
+
+### Configuring a Virtual Machine to be Started Automatically at Boot
+
+`virsh autostart [--disable] <Guest_VM>`
+
+Example: `virsh autostart Debian`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command will automatically start the guest virtual machine when the host machine boots.
+
+Adding the --disable argument to this command disables autostart. The guest in this case will not start automatically when the host physical machine boots.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-starting_a_defined_domain#sect-Domain_Commands-Configuring_a_domain_to_be_started_automatically_at_boot
+-->
+
+---
+
+### Extra: Rebooting a Guest Virtual Machine
+
+`virsh reboot <Guest_VM> [--mode <RebootModeName>]`
+
+Example: `virsh reboot Debian --mode initctl`
+
+<!--
+Some speaker notes here that might be useful.
+
+Remember that this action will only return once it has executed the reboot, so there may be a time lapse from that point until the guest virtual machine actually reboots. You can control the behavior of the rebooting guest virtual machine by modifying the on_reboot element in the guest virtual machine's XML configuration file. By default, the hypervisor attempts to select a suitable shutdown method automatically. To specify an alternative method, the --mode argument can specify a comma separated list which includes acpi and agent. The order in which drivers will try each mode is undefined, and not related to the order specified in virsh. For strict control over ordering, use a single mode at a time and repeat the command.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-starting_a_defined_domain#sect-Shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine-Rebooting_a_guest_virtual_machine
+-->
+
+---
+
+### Extra: Save Guest Virtual Machine's Configuration
+
+`virsh save [--bypass-cache] domain file [--xml string] [--running] [--paused] [--verbose]`
+
+Example: `virsh save Debian Debian-Configuration.xml --running`
+
+<!--
+Some speaker notes here that might be useful.
+
+command stops the specified domain, saving the current state of the guest virtual machine's system memory to a specified file. This may take a considerable amount of time, depending on the amount of memory in use by the guest virtual machine. You can restore the state of the guest virtual machine with the virsh restore command.
+
+The difference between the virsh save command and the virsh suspend command, is that the virsh suspend stops the domain CPUs, but leaves the domain's qemu process running and its memory image resident in the host system. This memory image will be lost if the host system is rebooted.
+
+The virsh save command stores the state of the domain on the hard disk of the host system and terminates the qemu process. This enables restarting the domain from the saved state.
+
+You can monitor the process of virsh save with the virsh domjobinfo command and cancel it with the virsh domjobabort command.
+
+The virsh save command can take the following arguments:
+  --bypass-cache - causes the restore to avoid the file system cache but note that using this flag may slow down the restore operation.
+  --xml - this argument must be used with an XML file name. Although this argument is usually omitted, it can be used to supply an alternative XML file for use on a restored guest virtual machine with changes only in the host-specific portions of the domain XML. For example, it can be used to account for the file naming differences in underlying storage due to disk snapshots taken after the guest was saved.
+  --running - overrides the state recorded in the save image to start the guest virtual machine as running.
+  --paused - overrides the state recorded in the save image to start the guest virtual machine as paused.
+  --verbose - displays the progress of the save.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-save-config#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Save_a_guest_virtual_machine
+-->
+
+---
+
+### Extra: Restore Guest Virtual Machine
+
+`virsh restore <file> [--bypass-cache] [--xml /path/to/file] [--running] [--paused]`
+
+Example: `virsh restore Debian-Configuration.xml --running`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command restores a guest virtual machine previously saved with the virsh save command.
+
+The restore action restarts the saved guest virtual machine, which may take some time. The guest virtual machine's name and UUID are preserved, but the ID will not necessarily match the ID that the virtual machine had when it was saved.
+
+The virsh restore command can take the following arguments:
+  --bypass-cache - causes the restore to avoid the file system cache but note that using this flag may slow down the restore operation.
+  --xml - this argument must be used with an XML file name. Although this argument is usually omitted, it can be used to supply an alternative XML file for use on a restored guest virtual machine with changes only in the host-specific portions of the domain XML. For example, it can be used to   account for the file naming differences in underlying storage due to disk snapshots taken after the guest was saved.
+  --running - overrides the state recorded in the save image to start the guest virtual machine as running.
+  --paused - overrides the state recorded in the save image to start the guest virtual machine as paused.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-starting_a_defined_domain#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Restore_a_guest_virtual_machine
+-->
+
+---
+
+### Extra: Resuming a Guest Virtual Machine
+
+`virsh resume <Guest_VM>`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command restarts the CPUs of a domain that was suspended. This operation is immediate. The guest virtual machine resumes execution from the point it was suspended. Note that this action will not resume a guest virtual machine that has been undefined. This action will not resume transient virtual machines and will only work on persistent virtual machines.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-starting_a_defined_domain#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Resuming_a_guest_virtual_machine
 -->
 
 ---
