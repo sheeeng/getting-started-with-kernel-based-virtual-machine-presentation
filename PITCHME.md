@@ -251,9 +251,18 @@ This option tells the kernel to use ttyS0 (the first serial port), with settings
 
 ### Guest Virtual Machine States and Types (Part 1/2)
 
-Several `virsh` commands are affected by the state of the guest virtual machine:
+Several `virsh` commands are affected by the state of the guest virtual machine: `Transient` or `Persistent`.
+
+
+<!--
+Some speaker notes here that might be useful.
+
+
 - Transient (A transient guest does not survive reboot.)
 - Persistent (A persistent guest virtual machine survives reboot and lasts until it is deleted.)
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-managing_guest_virtual_machines_with_virsh#domain-states
+-->
 
 ---
 
