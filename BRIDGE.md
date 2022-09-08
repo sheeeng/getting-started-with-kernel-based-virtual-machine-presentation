@@ -1,5 +1,7 @@
 # Bridge
 
+**Work In Progress**
+
 ```console
 ➜  ~ sudo virsh net-list --all
  Name      State    Autostart   Persistent
@@ -156,6 +158,90 @@ Device "br0" does not exist.
 ➜  ~
 
 ```
+
+---
+
+## Bridged Networking
+
+```text
+➜  ~ nmcli connection show --active
+NAME          UUID                                  TYPE    DEVICE
+Computas-IoT  03054a47-e711-4462-a500-6274470acb5e  wifi    wlp2s0
+virbr0        fceb5fb1-02fd-403e-9c95-37e991ca2341  bridge  virbr0
+➜  ~
+➜  ~ nmcli connection show
+NAME                UUID                                  TYPE      DEVICE
+Computas-IoT        03054a47-e711-4462-a500-6274470acb5e  wifi      wlp2s0
+virbr0              fceb5fb1-02fd-403e-9c95-37e991ca2341  bridge    virbr0
+Thomson9A1FC2       9ffb2bfa-9390-43dc-9c80-09910cc8efe5  wifi      --
+Wired connection 1  df92578e-8537-3537-8177-ac5dbdeadfc0  ethernet  --
+➜  ~
+➜  ~
+
+# Insert External Ethernet Adapter
+
+➜  ~ nmcli connection show
+NAME                UUID                                  TYPE      DEVICE
+Computas-IoT        03054a47-e711-4462-a500-6274470acb5e  wifi      wlp2s0
+virbr0              fceb5fb1-02fd-403e-9c95-37e991ca2341  bridge    virbr0
+Thomson9A1FC2       9ffb2bfa-9390-43dc-9c80-09910cc8efe5  wifi      --
+Wired connection 1  df92578e-8537-3537-8177-ac5dbdeadfc0  ethernet  --
+Wired connection 2  4d313639-1195-3360-b797-fc3282cfd9f3  ethernet  --
+➜  ~
+
+
+➜  ~ nmcli --fields UUID,TIMESTAMP-REAL con show | tail --lines +2 | awk '{print $1}'
+03054a47-e711-4462-a500-6274470acb5e
+fceb5fb1-02fd-403e-9c95-37e991ca2341
+9ffb2bfa-9390-43dc-9c80-09910cc8efe5
+df92578e-8537-3537-8177-ac5dbdeadfc0
+4d313639-1195-3360-b797-fc3282cfd9f3
+➜  ~
+
+➜  ~ nmcli --fields UUID,TIMESTAMP-REAL con show | tail --lines +2 | awk '{print $1}' | while read line; do echo "${line}"; done
+03054a47-e711-4462-a500-6274470acb5e
+fceb5fb1-02fd-403e-9c95-37e991ca2341
+9ffb2bfa-9390-43dc-9c80-09910cc8efe5
+df92578e-8537-3537-8177-ac5dbdeadfc0
+4d313639-1195-3360-b797-fc3282cfd9f3
+➜  ~
+
+
+➜  ~ nmcli connection add type bridge con-name br0 ifname br0
+Connection 'br0' (6008c77f-306e-4eac-a6aa-19fa2e46c146) successfully added.
+➜  ~ nmcli connection show
+NAME                UUID                                  TYPE      DEVICE
+br0                 6008c77f-306e-4eac-a6aa-19fa2e46c146  bridge    br0
+Computas-IoT        03054a47-e711-4462-a500-6274470acb5e  wifi      wlp2s0
+virbr0              fceb5fb1-02fd-403e-9c95-37e991ca2341  bridge    virbr0
+Thomson9A1FC2       9ffb2bfa-9390-43dc-9c80-09910cc8efe5  wifi      --
+Wired connection 1  df92578e-8537-3537-8177-ac5dbdeadfc0  ethernet  --
+Wired connection 2  4d313639-1195-3360-b797-fc3282cfd9f3  ethernet  --
+➜  ~
+
+
+
+➜  ~ ip -4 addr show wlp2s0
+3: wlp2s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    inet 10.47.20.97/24 brd 10.47.20.255 scope global dynamic noprefixroute wlp2s0
+       valid_lft 601849sec preferred_lft 601849sec
+➜  ~
+
+
+
+nmcli con mod br0 ipv4.addresses "10.47.20.97/24"
+nmcli con mod br0 ipv4.gateway "192.168.1.1"
+nmcli con mod br0 ipv4.dns "192.168.1.254 "
+nmcli con mod br0 ipv4.dns-search "example.com"
+nmcli con mod br0 ipv4.may-fail no
+
+
+
+
+
+```
+
+---
 
 <!--
 Some speaker notes here that might be useful.
