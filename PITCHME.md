@@ -447,7 +447,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh autostart [--disable] <Guest_VM>`
 ‎
-Example: `virsh autostart Debian`
+Example: `virsh autostart Debian11`
 
 <!--
 Some speaker notes here that might be useful.
@@ -465,7 +465,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh reboot <Guest_VM> [--mode <RebootModeName>]`
 ‎
-Example: `virsh reboot Debian --mode initctl`
+Example: `virsh reboot Debian11 --mode initctl`
 
 <!--
 Some speaker notes here that might be useful.
@@ -481,7 +481,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh save [--bypass-cache] domain file [--xml string] [--running] [--paused] [--verbose]`
 ‎
-Example: `virsh save Debian Debian-Configuration.xml --running`
+Example: `virsh save Debian11 Debian11-Configuration.xml --running`
 
 <!--
 Some speaker notes here that might be useful.
@@ -510,7 +510,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh define <Guest_VM.xml>`
 ‎
-Example: `virsh define Debian-Configuration.xml`
+Example: `virsh define Debian11-Configuration.xml`
 
 <!--
 Some speaker notes here that might be useful.
@@ -524,7 +524,7 @@ This command defines a guest virtual machine from an XML file. The guest virtual
 
 `virsh save-image-dumpxml file --security-info`
 ‎
-Example: `virsh save-image-dumpxml Debian-Configuration.xml`
+Example: `virsh save-image-dumpxml Debian11-Configuration.xml`
 
 <!--
 Some speaker notes here that might be useful.
@@ -540,7 +540,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh save-image-edit <file> [--running] [--paused]`
 ‎
-Example: `virsh save-image-edit Debian-Configuration.xml --running`
+Example: `virsh save-image-edit Debian11-Configuration.xml --running`
 
 <!--
 Some speaker notes here that might be useful.
@@ -558,7 +558,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh restore <file> [--bypass-cache] [--xml /path/to/file] [--running] [--paused]`
 ‎
-Example: `virsh restore Debian-Configuration.xml --running`
+Example: `virsh restore Debian11-Configuration.xml --running`
 
 <!--
 Some speaker notes here that might be useful.
@@ -691,7 +691,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 `virsh shutdown domain [--mode modename]`
 ‎
-Example: `virsh shutdown Debian --mode acpi`
+Example: `virsh shutdown Debian11 --mode acpi`
 
 <!--
 Some speaker notes here that might be useful.
