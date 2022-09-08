@@ -79,7 +79,7 @@ The default virtualization technology supported in Ubuntu is KVM. For Intel and 
 ## Overview of Kernel-based Virtual Machine (KVM) (Part 2/2)
 
 - KVM converts Linux into a type-1 (bare-metal) hypervisor.
-- Every VM is implemented as a regular Linux process, scheduled by the standard Linux scheduler, with dedicated irtual hardware components.
+- Every VM is implemented as a regular Linux process, scheduled by the standard Linux scheduler, with dedicated virtual hardware components.
 
 <!--
 Some speaker notes here that might be useful.
