@@ -117,6 +117,32 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 ---
 
+### Why Virtual Machines Called Domain? (Part 1/2)
+
+- `Domain0` is the first domain started by the hypervisor at boot, and will be running a Linux OS. This domain is privileged: it may access the hardware and can run the XenControlTools that manage other domains.
+
+<!--
+Some speaker notes here that might be useful.
+
+https://wiki.xenproject.org/wiki/Domain
+https://wiki.xenproject.org/wiki/Dom0
+-->
+
+---
+
+### Why Virtual Machines Called Domain? (Part 2/2)
+
+- These other domains are referred to as `DomU`s with the `U` standing for "user". They are unprivileged, and the equivalent to a guest system or guest virtual machine.
+
+<!--
+Some speaker notes here that might be useful.
+
+https://wiki.xenproject.org/wiki/Domain
+https://wiki.xenproject.org/wiki/DomU
+-->
+
+---
+
 ## Task 1
 
 ### Setup Kernel-based Virtual Machine (KVM)
@@ -419,11 +445,26 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ---
 
+### Take Screenshot of Virtual Machine
+
+`virsh screenshot $<Domain-{Id,Name,Uuid}> [imagefilepath] [--screen screenID]`
+‎
+Example: `virsh screenshot Debian11`
+
+<!--
+Takes a screenshot of a current domain console and stores it into a file. Optionally, if hypervisor supports more displays for a domain, screenID allows to specify which screen will be captured. It is the sequential number of screen. In case of multiple graphics cards, heads are enumerated before devices, e.g. having two graphics cards, both with four heads, screen ID 5 addresses the second head on the second card.
+
+https://linux.die.net/man/1/virsh
+-->
+
+---
+
+
 ### Extra: Start Guest Virtual Machine
 
-`virsh start <Guest_VM> [--console] [--paused] [--autodestroy] [--bypass-cache] [--force-boot]`
+`virsh start $<Domain-{Id,Name,Uuid}> [--console] [--paused] [--autodestroy] [--bypass-cache] [--force-boot]`
 ‎
-Starts the `<Guest_VM>` that you already created and is currently in the inactive state.
+Starts the `$<Domain-{Id,Name,Uuid}>` that you already created and is currently in the inactive state.
 
 <!--
 Some speaker notes here that might be useful.
@@ -445,7 +486,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Configuring a Virtual Machine to be Started Automatically at Boot
 
-`virsh autostart [--disable] <Guest_VM>`
+`virsh autostart [--disable] $<Domain-{Id,Name,Uuid}>`
 ‎
 Example: `virsh autostart Debian11`
 
@@ -463,7 +504,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Extra: Rebooting a Guest Virtual Machine
 
-`virsh reboot <Guest_VM> [--mode <RebootModeName>]`
+`virsh reboot $<Domain-{Id,Name,Uuid}> [--mode <RebootModeName>]`
 ‎
 Example: `virsh reboot Debian11 --mode initctl`
 
@@ -508,7 +549,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Extra: Define Guest VM with XML File
 
-`virsh define <Guest_VM.xml>`
+`virsh define $<Domain-{Id,Name,Uuid}>.xml`
 ‎
 Example: `virsh define Debian11-Configuration.xml`
 
@@ -580,7 +621,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Extra: Resuming a Guest Virtual Machine
 
-`virsh resume <Guest_VM>`
+`virsh resume $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -594,7 +635,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Host Physical Machine Name
 
-`virsh domhostname <Guest_VM>`
+`virsh domhostname $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -606,7 +647,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Guest VM General Information
 
-`virsh dominfo <Guest_VM>`
+`virsh dominfo $<Domain-{Id,Name,Uuid}>d/Domain-Name/Uuid}`
 
 <!--
 Some speaker notes here that might be useful.
@@ -618,7 +659,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Guest VM's ID Number
 
-`virsh domid <Guest_VM>`
+`virsh domid $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -630,7 +671,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Extra: Abort Running Jobs on a Guest VM
 
-`virsh domjobabort <Guest_VM>`
+`virsh domjobabort $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -641,7 +682,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### List Statistic about Guest VM
 
-`virsh domjobinfo <Guest_VM>`
+`virsh domjobinfo $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -653,7 +694,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Guest Virtual Machine's Name
 
-`virsh domname <Guest_VM_ID>`
+`virsh domname $<Domain-{Id,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -665,7 +706,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Virtual Machine's State
 
-`virsh domstate <Guest_VM>`
+`virsh domstate $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -677,7 +718,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Display Connection State to the Virtual Machine
 
-`virsh domcontrol <Guest_VM>`
+`virsh domcontrol $<Domain-{Id,Name,Uuid}>`
 
 <!--
 Some speaker notes here that might be useful.
@@ -689,7 +730,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Shut Down Guest Virtual Machine
 
-`virsh shutdown domain [--mode modename]`
+`virsh shutdown $<Domain-{Id,Name,Uuid}> [--mode modename]`
 ‎
 Example: `virsh shutdown Debian11 --mode acpi`
 
@@ -708,7 +749,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Suspend Guest Virtual Machine
 
-`virsh suspend domain`
+`virsh suspend $<Domain-{Id,Name,Uuid}>`
 ‎
 Example: `virsh suspend Debian11`
 
@@ -724,7 +765,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Reset Virtual Machine
 
-`virsh reset domain`
+`virsh reset $<Domain-{Id,Name,Uuid}>`
 ‎
 Example: `virsh reset Debian11`
 
@@ -742,7 +783,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Stop Running Guest Virtual Machine To Restart It Later
 
-`virsh managedsave domain --bypass-cache --running | --paused | --verbose`
+`virsh managedsave $<Domain-{Id,Name,Uuid}> --bypass-cache --running | --paused | --verbose`
 ‎
 Example: `virsh managedsave Debian11 --running`
 
@@ -783,7 +824,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Remove and Delete a Virtual Machine
 
-`virsh undefine domain [--managed-save] [storage] [--remove-all-storage] [--wipe-storage] [--snapshots-metadata] [--nvram]`
+`virsh undefine $<Domain-{Id,Name,Uuid}> [--managed-save] [storage] [--remove-all-storage] [--wipe-storage] [--snapshots-metadata] [--nvram]`
 ‎
 Example: `virsh undefine Debian11 --remove-all-storage`
 
@@ -805,7 +846,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ### Force a Guest Virtual Machine to Stop
 
-`virsh destroy domain`
+`virsh destroy $<Domain-{Id,Name,Uuid}>`
 ‎
 Example: `virsh undefine Debian11 --remove-all-storage`
 
@@ -1188,12 +1229,6 @@ $ sudo virsh net-dumpxml default
 </network>
 ```
 -->
-
----
-
-## Related Links
-
-<https://gist.github.com/sheeeng/6f43d75d6d58fee44690208cbe6c5dd9>
 
 ---
 
