@@ -2,8 +2,16 @@ name: GitHub Pages
 
 on:
   push:
-    branches:
-      - master
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushbranchestagsbranches-ignoretags-ignore
+    branches: [
+      'main',
+      'master'
+    ]
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
+    paths: [
+      'PITCHME.md',
+      '!assets/**'
+    ]
 
 jobs:
   build-and-deploy:
