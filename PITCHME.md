@@ -381,7 +381,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Extra: Start Guest Virtual Machine
 
 `virsh start <Guest_VM> [--console] [--paused] [--autodestroy] [--bypass-cache] [--force-boot]`
-
+‎
 Starts the `<Guest_VM>` that you already created and is currently in the inactive state.
 
 <!--
@@ -405,7 +405,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Configuring a Virtual Machine to be Started Automatically at Boot
 
 `virsh autostart [--disable] <Guest_VM>`
-
+‎
 Example: `virsh autostart Debian`
 
 <!--
@@ -423,7 +423,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Extra: Rebooting a Guest Virtual Machine
 
 `virsh reboot <Guest_VM> [--mode <RebootModeName>]`
-
+‎
 Example: `virsh reboot Debian --mode initctl`
 
 <!--
@@ -439,7 +439,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Extra: Save Guest Virtual Machine's Configuration
 
 `virsh save [--bypass-cache] domain file [--xml string] [--running] [--paused] [--verbose]`
-
+‎
 Example: `virsh save Debian Debian-Configuration.xml --running`
 
 <!--
@@ -468,7 +468,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Extra: Define Guest VM with XML File
 
 `virsh define <Guest_VM.xml>`
-
+‎
 Example: `virsh define Debian-Configuration.xml`
 
 <!--
@@ -479,10 +479,44 @@ This command defines a guest virtual machine from an XML file. The guest virtual
 
 ---
 
+### Extra: Extract Guest VM XML File
+
+`virsh save-image-dumpxml file --security-info`
+‎
+Example: `virsh save-image-dumpxml Debian-Configuration.xml`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command will extract the guest virtual machine XML file that was in effect at the time the saved state file (used in the virsh save command) was referenced. Using the --security-info argument includes security sensitive information in the file.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-save-config#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Extracting_the_domain_XML_file
+-->
+
+---
+
+### Extra: Edit Guest VM Configuration
+
+`virsh save-image-edit <file> [--running] [--paused]`
+‎
+Example: `virsh save-image-edit Debian-Configuration.xml --running`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command edits the XML configuration file that was created by the virsh save command.
+
+When the guest virtual machine is saved, the resulting image file will indicate if the virtual machine should be restored to a --running or --paused state. Without using these arguments in the save-image-edit command, the state is determined by the image file itself. By selecting --running (to select the running state) or --paused (to select the paused state) you can overwrite the state that virsh restore should use.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-save-config#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Edit_Domain_XML_configuration_files
+-->
+
+---
+
 ### Extra: Restore Guest Virtual Machine
 
 `virsh restore <file> [--bypass-cache] [--xml /path/to/file] [--running] [--paused]`
-
+‎
 Example: `virsh restore Debian-Configuration.xml --running`
 
 <!--
@@ -553,7 +587,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ---
 
-### Abort Running Jobs on a Guest VM
+### Extra: Abort Running Jobs on a Guest VM
 
 `virsh domjobabort <Guest_VM>`
 
