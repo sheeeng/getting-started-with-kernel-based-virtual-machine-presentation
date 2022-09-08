@@ -17,15 +17,6 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ---
 
-## Agenda / Tasks / 90 Minutes
-
-- Setup Kernel-based Virtual Machine (KVM)
-- Manage KVM Using:
-  - Command Line Interface (CLI)
-  - Graphical User Interface (GUI)
-
----
-
 ## Abstract (Part 1/5)
 
 - Want to get started with Kernel-based Virtual Machine (KVM)?
@@ -42,19 +33,28 @@ In this tutorial, Leonard will be teaching people to familiarize themselves with
 
 ## Abstract (Part 3/5)
 
-Participants must have a basic knowledge on how Linux operating system works, and must have a Linux based operating system running natively on a laptop in order to join this tutorial. We will be focusing on doing some tasks of creating, accessing, modifying, and deleting KVMs, from both graphical user interface (GUI) and CLI.
+Participants must have a basic knowledge of how the Linux operating system works, and must have a recent Linux based operating system running on a portable computer to join this tutorial.
 
 ---
 
 ## Abstract (Part 4/5)
 
-We will busy with these virt-manager tools in the tutorial. - `virt-install` is a command line tool which provides an easy way to provision operating systems into virtual machines. - `virt-viewer` is a lightweight UI interface for interacting with the graphical display of virtualized guest OS. It can display VNC or SPICE, and uses libvirt to lookup the graphical connection details.
+We will be focusing on tasks such as creating, accessing, modifying, and deleting KVMs, primarily using CLI and if time permits, using a graphical user interface (GUI) too.
 
 ---
 
 ## Abstract (Part 5/5)
 
-At the end of this tutorial, participants are expected to know how to check if KVM is supported on their hardware, create and manage KVMs with confident, from both GUI and CLI.
+At the end of this tutorial, participants are expected to know how to check if KVM is supported on their computer hardware and manage KVMs with confidence.
+
+---
+
+## Agenda / Tasks / 90 Minutes
+
+- Setup Kernel-based Virtual Machine (KVM)
+- Manage KVM Using:
+  - Command Line Interface (CLI)
+  - Graphical User Interface (GUI)
 
 ---
 
@@ -77,6 +77,35 @@ The default virtualization technology supported in Ubuntu is KVM. For Intel and 
 ---
 
 ## Overview of Kernel-based Virtual Machine (KVM) (Part 2/2)
+
+- KVM converts Linux into a type-1 (bare-metal) hypervisor.
+- Every VM is implemented as a regular Linux process, scheduled by the standard Linux scheduler, with dedicated irtual hardware components.
+
+<!--
+Some speaker notes here that might be useful.
+
++KVM converts Linux into a type-1 (bare-metal) hypervisor. All hypervisors need some operating system-level components—such as a memory manager, process scheduler, input/output (I/O) stack, device drivers, security manager, a network stack, and more—to run VMs. KVM has all these components because it’s part of the Linux kernel. Every VM is implemented as a regular Linux process, scheduled by the standard Linux scheduler, with dedicated virtual hardware like a network card, graphics dapter, CPU(s), memory, and disks.
+
+https://www.redhat.com/en/topics/virtualization/what-is-KVM
+-->
+
+---
+
+## Overview of Hypervisor
+
+- A hypervisor is software that creates and runs virtual achines (VMs).
+- It is also called a virtual machine monitor (VMM).
+- It isolates the hypervisor operating system and resources from the virtual machines and enables the creation and anagement of those VMs.
+
+<!--
+Some speaker notes here that might be useful.
+
+https://www.redhat.com/en/topics/virtualization/hat-is-a-hypervisor
+-->
+
+---
+
+## Overview of QEMU (Quick Emulator)
 
 - QEMU (Quick Emulator) is part of the KVM experience being the userspace backend for it, but it also can be used for hardware without virtualization extensions by using its Tiny Code Generator (TCG) mode.
 
@@ -234,15 +263,15 @@ systemctl restart libvirtd
 
 ```shell
 $ virt-install \
-    --name Debian --os-variant debian11 --description 'Debian' \
-    --vcpus 1 --ram 1024 \
+    --name Debian11 --os-variant debian11 --description 'Debian11' \
+    --vcpus 2 --ram 2048 \
     --location \
     https://ftp.debian.org/debian/dists/stable/main/installer-amd64 \
     --network bridge=virbr0 \
     --graphics vnc,listen=127.0.0.1,port=5901 \
     --noreboot --noautoconsole \
     --extra-args 'console=ttyS0,115200n8 serial'
-$ virt-viewer --connect qemu:///session --wait Debian
+$ virt-viewer --connect qemu:///session --wait Debian11
 ```
 
 <!--
@@ -271,7 +300,9 @@ Escape character is ^] (Ctrl + ])
 
 ### Guest Virtual Machine States and Types (Part 1/2)
 
-Several `virsh` commands are affected by the state of the guest virtual machine: `Transient` or `Persistent`.
+Several `virsh` commands are affected by the state of the guest virtual machine:
+‎
+**`Transient`** or **`Persistent`**.
 
 
 <!--
@@ -289,18 +320,18 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Guest Virtual Machine States and Types (Part 2/2)
 
 During the life cycle of a virtual machine, `libvirt` will classify the guest as any of the following states:
-
-`Undefined`, `Shut off`, `Running`, `Paused`, `Saved`
+‎
+**`Undefined`**, **`Shut off`**, **`Running`**, **`Paused`**, **`Saved`**
 
 <!--
 Some speaker notes here that might be useful.
 
 During the life cycle of a virtual machine, libvirt will classify the guest as any of the following states:
-Undefined - This is a guest virtual machine that has not been defined or created. As such, libvirt is unaware of any guest in this state and will not report about guest virtual machines in this state.
-Shut off - This is a guest virtual machine which is defined, but is not running. Only persistent guests can be considered shut off. As such, when a transient guest virtual machine is put into this state, it ceases to exist.
-Running - The guest virtual machine in this state has been defined and is currently working. This state can be used with both persistent and transient guest virtual machines.
-Paused - The guest virtual machine's execution on the hypervisor has been suspended, or its state has been temporarily stored until it is resumed. Guest virtual machines in this state are not aware they have been suspended and do not notice that time has passed when they are resumed.
-Saved - This state is similar to the paused state, however the guest virtual machine's configuration is saved to persistent storage. Any guest virtual machine in this state is not aware it is paused and does not notice that time has passed once it has been restored.
+  Undefined - This is a guest virtual machine that has not been defined or created. As such, libvirt is unaware of any guest in this state and will not report about guest virtual machines in this state.
+  Shut off - This is a guest virtual machine which is defined, but is not running. Only persistent guests can be considered shut off. As such, when a transient guest virtual machine is put into this state, it ceases to exist.
+  Running - The guest virtual machine in this state has been defined and is currently working. This state can be used with both persistent and transient guest virtual machines.
+  Paused - The guest virtual machine's execution on the hypervisor has been suspended, or its state has been temporarily stored until it is resumed. Guest virtual machines in this state are not aware they have been suspended and do not notice that time has passed when they are resumed.
+  Saved - This state is similar to the paused state, however the guest virtual machine's configuration is saved to persistent storage. Any guest virtual machine in this state is not aware it is paused and does not notice that time has passed once it has been restored.
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-managing_guest_virtual_machines_with_virsh#domain-states
 -->
@@ -326,10 +357,10 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Connect to Hypervisor (Part 1/2)
 
 `virsh connect [hostname-or-URI] [--readonly]`
-
+‎
 The most commonly used URIs are:
-
 `qemu:///system`, `qemu:///session`, `lxc:///`
+
 <!--
 Some speaker notes here that might be useful.
 
@@ -345,7 +376,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 ### Connect to Hypervisor (Part 2/2)
 
 For example, establish a session to connect to your set of guest virtual machines (VMs), with you as the local user:
-
+‎
 `virsh connect qemu:///session`
 
 <!--
@@ -1104,9 +1135,9 @@ https://blog.programster.org/kvm-missing-default-network
 
 ## Task 3
 
-### Manage KVM using Graphical User Interface (GUI)
+### Manage KVM using Graphical User Interface (GUI)\* $_{(*if\ time\ permits)}$
 
-Use `virt-manager` to create, manage, & delete KVMs.
+Use **`virt-manager`** to create, manage, & delete KVMs.
 
 ---
 
