@@ -465,6 +465,20 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ---
 
+### Extra: Define Guest VM with XML File
+
+`virsh define <Guest_VM.xml>`
+
+Example: `virsh define Debian-Configuration.xml`
+
+<!--
+Some speaker notes here that might be useful.
+
+This command defines a guest virtual machine from an XML file. The guest virtual machine definition in this case is registered but not started. If the guest virtual machine is already running, the changes the changes will take effect once the domain is shut down and started again.
+-->
+
+---
+
 ### Extra: Restore Guest Virtual Machine
 
 `virsh restore <file> [--bypass-cache] [--xml /path/to/file] [--running] [--paused]`
