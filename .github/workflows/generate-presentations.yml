@@ -1,4 +1,4 @@
-name: Generate PDF
+name: Generate Presentations
 
 on:
   push:
