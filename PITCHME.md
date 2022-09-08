@@ -259,6 +259,16 @@ This option tells the kernel to use ttyS0 (the first serial port), with settings
 
 ---
 
+### View Serial Console Message
+
+```console
+$ virsh console Fedora
+Connected to domain 'Fedora'
+Escape character is ^] (Ctrl + ])
+```
+
+---
+
 ### Guest Virtual Machine States and Types (Part 1/2)
 
 Several `virsh` commands are affected by the state of the guest virtual machine: `Transient` or `Persistent`.
@@ -646,6 +656,175 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 ---
 
+### Shut Down Guest Virtual Machine
+
+`virsh shutdown domain [--mode modename]`
+‎
+Example: `virsh shutdown Debian --mode acpi`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command shuts down a guest virtual machine. You can control the behavior of how the guest virtual machine reboots by modifying the on_shutdown parameter in the guest virtual machine's configuration file. Any change to the on_shutdown parameter will only take effect after the domain has been shutdown and restarted.
+
+The virsh shutdown command command can take the following optional argument:
+  --mode chooses the shutdown mode. This can be either acpi, agent, initctl, signal, or paravirt.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine#sect-Shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine-Shut_down_a_guest_virtual_machine
+-->
+
+---
+
+### Suspend Guest Virtual Machine
+
+`virsh suspend domain`
+‎
+Example: `virsh suspend Debian11`
+
+<!--
+Some speaker notes here that might be useful.
+
+When a guest virtual machine is in a suspended state, it consumes system RAM but not processor resources. Disk and network I/O does not occur while the guest virtual machine is suspended. This operation is immediate and the guest virtual machine can only be restarted with the virsh resume command. Running this command on a transient virtual machine will delete it.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Suspending_a_guest_virtual_machine
+-->
+
+---
+
+### Reset Virtual Machine
+
+`virsh reset domain`
+‎
+Example: `virsh reset Debian11`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command resets the guest virtual machine immediately without any guest shutdown. A reset emulates the reset button on a machine, where all guest hardware sees the RST line and re-initializes the internal state. Note that without any guest virtual machine OS shutdown, there are risks for data loss.
+
+  Resetting a virtual machine does not apply any pending domain configuration changes. Changes to the domain's configuration only take effect after a complete shutdown and restart of the domain.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Suspending_a_guest_virtual_machine
+-->
+
+---
+
+### Stop Running Guest Virtual Machine To Restart It Later
+
+`virsh managedsave domain --bypass-cache --running | --paused | --verbose`
+‎
+Example: `virsh managedsave Debian11 --running`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command saves and destroys (stops) a running guest virtual machine so that it can be restarted from the same state at a later time. When used with a virsh start command it is automatically started from this save point. If it is used with the --bypass-cache argument the save will avoid the filesystem cache. Note that this option may slow down the save process speed and using the --verbose option displays the progress of the dump process. Under normal conditions, the managed save will decide between using the running or paused state as determined by the state the guest virtual machine is in when the save is done. However, this can be overridden by using the --running option to indicate that it must be left in a running state or by using --paused option which indicates it is to be left in a paused state. To remove the managed save state, use the virsh managedsave-remove command which will force the guest virtual machine to do a full boot the next time it is started. Note that the entire managed save process can be monitored using the domjobinfo command and can also be canceled using the domjobabort command.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-shutting_down_rebooting_and_force_shutdown_of_a_guest_virtual_machine#sect-Starting_suspending_resuming_saving_and_restoring_a_guest_virtual_machine-Suspending_a_guest_virtual_machine
+-->
+
+---
+
+### Extra: Listing, Creating, Applying, and Deleting a Snapshot
+
+`qemu-img snapshot [ -l | -a snapshot | -c snapshot | -d snapshot ] filename`
+
+<!--
+Some speaker notes here that might be useful.
+
+The qemu-img command-line tool is used for formatting, modifying, and verifying various file systems used by KVM.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/chap-using_qemu_img
+
+Using different parameters from the qemu-img snapshot command you can list, apply, create, or delete an existing snapshot (snapshot) of specified image (filename).
+
+The accepted arguments are as follows:
+  -l lists all snapshots associated with the specified disk image.
+  The apply option, -a, reverts the disk image (filename) to the state of a previously saved snapshot.
+  -c creates a snapshot (snapshot) of an image (filename).
+  -d deletes the specified snapshot.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-using_qemu_img-listing_creating_applying_and_deleting_a_snapshot
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-using_qemu_img-supported_qemu_img_formats
+-->
+---
+
+### Remove and Delete a Virtual Machine
+
+`virsh undefine domain [--managed-save] [storage] [--remove-all-storage] [--wipe-storage] [--snapshots-metadata] [--nvram]`
+‎
+Example: `virsh undefine Debian11 --remove-all-storage`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command undefines a domain. If domain is inactive, the configuration is removed completely. If the domain is active (running), it is converted to a transient domain. When the guest virtual machine becomes inactive, the configuration is removed completely.
+
+This command can take the following arguments:
+  --managed-save - this argument guarantees that any managed save image is also cleaned up. Without using this argument, attempts to undefine a guest virtual machine with a managed save will fail.
+  --snapshots-metadata - this argument guarantees that any snapshots (as shown with snapshot-list) are also cleaned up when undefining an inactive guest virtual machine. Note that any attempts to undefine an inactive guest virtual machine with snapshot metadata will fail. If this argument is used and the guest virtual machine is active, it is ignored.
+  --storage - using this argument requires a comma separated list of volume target names or source paths of storage volumes to be removed along with the undefined domain. This action will undefine the storage volume before it is removed. Note that this can only be done with inactive guest virtual machines and that this will only work with storage volumes that are managed by libvirt.
+  --remove-all-storage - in addition to undefining the guest virtual machine, all associated storage volumes are deleted. If you want to delete the virtual machine, choose this option only if there are no other virtual machines using the same associated storage. An alternative way is with the virsh vol-delete.
+  --wipe-storage - in addition to deleting the storage volume, the contents are wiped.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-virsh-delete
+-->
+---
+
+### Force a Guest Virtual Machine to Stop
+
+`virsh destroy domain`
+‎
+Example: `virsh undefine Debian11 --remove-all-storage`
+
+<!--
+Some speaker notes here that might be useful.
+
+The command initiates an immediate ungraceful shutdown and stops the specified guest virtual machine. Using virsh destroy can corrupt guest virtual machine file systems. Use the virsh destroy command only when the guest virtual machine is unresponsive. The virsh destroy command with the --graceful option attempts to flush the cache for the disk image file before powering off the virtual machine.
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-virsh-delete
+-->
+---
+
+### Virtual Machine Termination
+
+```console
+$ virsh shutdown Debian11 # Graceful Shutdown
+Domain 'Debian11' is being shutdown
+
+$ virsh destroy Debian11 # Force Shutdown
+Domain 'Debian11' destroyed
+
+$ virsh undefine Debian11
+Domain 'Debian11' has been undefined
+```
+
+---
+
+### Extra: Related Commands
+
+```shell
+$ virsh nodeinfo
+$ virsh edit
+
+$ virt-df
+$ virt-top
+$ virt-viewer
+
+$ virsh pool-list --all
+$ virsh pool-destroy
+$ virsh pool-undefine
+```
+
+---
+
+### Extra: List OS Variant
+
+`virt-install --os-variant list`
+
+---
+
 #### Extra: Install Ubuntu from ISO Image
 
 ```shell
@@ -807,49 +986,6 @@ https://mirror.netsite.dk/centos-stream/9-stream/BaseOS/x86_64/os/
 
 Opens an interactive console that you can use to manually install the guest virtual machine.
 -->
-
----
-
-### Delete Virtual Machine
-
-```console
-$ virsh shutdown Debian # Graceful Shutown
-Domain 'Debian' is being shutdown
-
-$ virsh destroy Debian # Force Shutdown
-Domain 'Debian' destroyed
-
-$ virsh undefine Debian
-Domain 'Debian' has been undefined
-```
-
----
-
-### Related `vir*` Commands
-
-```shell
-$ virt-install --os-variant list
-
-$ virsh nodeinfo
-$ virsh edit
-$ virt-df
-$ virt-top
-$ virt-viewer
-
-$ virsh pool-list --all
-$ virsh pool-destroy
-$ virsh pool-undefine
-```
-
----
-
-### View Serial Console Message
-
-```console
-$ virsh console Fedora
-Connected to domain 'Fedora'
-Escape character is ^] (Ctrl + ])
-```
 
 ---
 
