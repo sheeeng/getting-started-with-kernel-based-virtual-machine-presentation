@@ -330,7 +330,6 @@ Several `virsh` commands are affected by the type of the guest virtual machine:
 ‎
 **`Transient`** or **`Persistent`**.
 
-
 <!--
 Some speaker notes here that might be useful.
 
@@ -378,6 +377,7 @@ The virsh version --daemon is useful for getting information about the libvirtd 
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-version#doc-wrapper
 -->
+
 ---
 
 ### Connect to Hypervisor (Part 1/2)
@@ -397,6 +397,7 @@ lxc:/// - connects to a local Linux container.
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-generic_commands-connect#doc-wrapper
 -->
+
 ---
 
 ### Connect to Hypervisor (Part 2/2)
@@ -458,7 +459,6 @@ https://linux.die.net/man/1/virsh
 -->
 
 ---
-
 
 ### Extra: Start Guest Virtual Machine
 
@@ -678,6 +678,7 @@ Some speaker notes here that might be useful.
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-domain_commands-domain_retrieval_commands#virsh-domjobabort
 -->
+
 ---
 
 ### List Statistic about Guest VM
@@ -820,6 +821,7 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/vi
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-using_qemu_img-supported_qemu_img_formats
 -->
+
 ---
 
 ### Remove and Delete a Virtual Machine
@@ -842,6 +844,7 @@ This command can take the following arguments:
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-virsh-delete
 -->
+
 ---
 
 ### Force a Guest Virtual Machine to Stop
@@ -857,6 +860,7 @@ The command initiates an immediate ungraceful shutdown and stops the specified g
 
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-virsh-delete
 -->
+
 ---
 
 ### Virtual Machine Termination
@@ -1005,6 +1009,7 @@ $ virt-install \
     --extra-args='console=ttyS0,115200n8 edd=off'
 $ virsh console AlmaLinux
 ```
+
 <!--
 Some speaker notes here that might be useful.
 
@@ -1179,6 +1184,314 @@ https://blog.programster.org/kvm-missing-default-network
 ### Manage KVM using Graphical User Interface (GUI)\* $_{(*if\ time\ permits)}$
 
 Use **`virt-manager`** to create, manage, & delete KVMs.
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-12-12.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-12-34.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-14-21.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-14-40.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-14-50.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-14-58.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-15-22.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-15-47.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-15-52.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-15-55.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-03.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-08.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-13.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-16.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-25.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-16-40.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-10.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-14.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-17.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-21.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-25.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-31.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-33.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-35.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-44.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-17-55.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-02.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-07.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-12.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-15.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-19.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-22.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-42.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-18-50.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-07.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-11.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-13.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-14.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-16.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-20.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-22.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-25.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-29.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-33.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-35.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-36.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-38.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-39.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-42.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-44.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-19-53.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-20-04.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-22-26.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-22-34.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-01.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-03.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-09.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-18.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-23.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-24-28.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-30-27.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-35-44.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-35-52.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-35-55.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-35-57.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-13.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-18.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-22.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-25.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-28.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-37-38.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-38-23.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-38-39.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-38-46.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-40-03.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-40-39.png)
+
+---
+
+![height:14em](./assets/screenshots/Screenshot%20from%202022-09-08%2014-40-58.png)
 
 ---
 
