@@ -326,7 +326,7 @@ Escape character is ^] (Ctrl + ])
 
 ### Guest Virtual Machine States and Types (Part 1/2)
 
-Several `virsh` commands are affected by the state of the guest virtual machine:
+Several `virsh` commands are affected by the type of the guest virtual machine:
 ‎
 **`Transient`** or **`Persistent`**.
 
