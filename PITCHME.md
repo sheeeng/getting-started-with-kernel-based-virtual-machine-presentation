@@ -319,8 +319,8 @@ This option tells the kernel to use ttyS0 (the first serial port), with settings
 ### View Serial Console Message
 
 ```console
-$ virsh console Fedora
-Connected to domain 'Fedora'
+$ virsh console Debian11
+Connected to domain 'Debian11'
 Escape character is ^] (Ctrl + ])
 ```
 
