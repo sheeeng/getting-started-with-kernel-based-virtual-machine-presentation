@@ -54,7 +54,9 @@ At the end of this tutorial, participants are expected to know how to check if K
 - Setup Kernel-based Virtual Machine (KVM)
 - Manage KVM Using:
   - Command Line Interface (CLI)
-  - Graphical User Interface (GUI)
+  - Graphical User Interface (GUI)*
+
+$_{*If\ time\ permits.}$
 
 ---
 
