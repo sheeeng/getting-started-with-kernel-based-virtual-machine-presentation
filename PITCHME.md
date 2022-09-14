@@ -283,7 +283,7 @@ systemctl restart libvirtd
 
 ### Manage KVM using Command Line Interface (CLI)
 
-- [Install Debian from Network](#22).
+- [Install Debian from Network](#26).
 
 ---
 
