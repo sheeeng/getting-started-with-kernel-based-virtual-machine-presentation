@@ -95,9 +95,9 @@ https://www.redhat.com/en/topics/virtualization/what-is-KVM
 
 ## Overview of Hypervisor
 
-- A hypervisor is software that creates and runs virtual achines (VMs).
+- A hypervisor is software that creates and runs virtual machines (VMs).
 - It is also called a virtual machine monitor (VMM).
-- It isolates the hypervisor operating system and resources from the virtual machines and enables the creation and anagement of those VMs.
+- It isolates the hypervisor operating system and resources from the virtual machines and enables the creation and management of those VMs.
 
 <!--
 Some speaker notes here that might be useful.
