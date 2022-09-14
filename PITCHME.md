@@ -121,7 +121,7 @@ The Tiny Code Generator (TCG) is the core binary translation engine that is resp
 
 ### Why Virtual Machines Called Domain? (Part 1/2)
 
-- `Domain0` is the first domain started by the hypervisor at boot, and will be running a Linux OS. This domain is privileged: it may access the hardware and can run the XenControlTools that manage other domains.
+- `Domain0` is the first domain started by the hypervisor at boot, and will be running a Linux OS. This domain is privileged: it may access the hardware and can run the tools that manage other domains.
 
 <!--
 Some speaker notes here that might be useful.
