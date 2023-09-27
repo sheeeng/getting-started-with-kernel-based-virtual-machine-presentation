@@ -1,4 +1,4 @@
-name: Generate Presentations
+name: Export Presentation
 
 on:
   push:
