@@ -2,52 +2,40 @@ name: GitHub Pages
 
 on:
   push:
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushbranchestagsbranches-ignoretags-ignore
-    branches: [
-      'main',
-      'master'
-    ]
-    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
-    paths: [
-      'PITCHME.md',
-      '!assets/**'
-    ]
+    branches:
+      - master
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Load .nvmrc File Content
-        id: node_version
-        run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
-
-      - name: Setup Node.js Environment
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.node_version.outputs.nvmrc }}
+          cache: npm
+          node-version-file: '.nvmrc'
 
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install Dependencies and Puppeteer
-        run: |
-          npm ci
-          sudo apt-get install libgbm-dev
-          npm install puppeteer --no-save
-
-      - name: Build Marp Slide Deck
-        run: |
-          CHROME_PATH=$(node -e "console.log(require('puppeteer').executablePath())") npm run build
-          touch ./public/.nojekyll
+      - name: Build Marp slide deck
+        run: CHROME_PATH=$(npx @puppeteer/browsers install chrome@stable --path $(realpath ./tmp) | awk '{print $2}') npm run build
         env:
           # Please update URL if you want to use custom domain
           URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}
@@ -55,9 +43,11 @@ jobs:
           # Recommend to set lang for your deck to get better rendering for Open Graph image
           LANG: en-US
 
-      - name: Deploy to GitHub Pages
-        uses: jamesives/github-pages-deploy-action@v4
+      - name: Upload page artifacts
+        uses: actions/upload-pages-artifact@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: public
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
