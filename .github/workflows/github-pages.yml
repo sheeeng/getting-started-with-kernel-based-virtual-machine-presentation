@@ -3,14 +3,10 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - master
-
+      - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 concurrency:
   group: pages
@@ -22,32 +18,28 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Install Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           cache: npm
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Build Marp slide deck
-        run: CHROME_PATH=$(npx @puppeteer/browsers install chrome@stable --path $(realpath ./tmp) | awk '{print $2}') npm run build
+      - run: npm run build
         env:
           # Please update URL if you want to use custom domain
           URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}
 
-          # Recommend to set lang for your deck to get better rendering for Open Graph image
-          LANG: en-US
-
-      - name: Upload page artifacts
-        uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: public
 
-      - name: Deploy to GitHub Pages
+      - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
         id: deployment
-        uses: actions/deploy-pages@main
