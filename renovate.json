@@ -5,7 +5,13 @@
     ":disableDependencyDashboard"
   ],
   "lockFileMaintenance": {
+    "description": "https://docs.renovatebot.com/configuration-options/#lockfilemaintenance",
+    "enabled": true
+  },
+  "node": {
     "enabled": true,
-    "description": "https://docs.renovatebot.com/configuration-options/#lockfilemaintenance"
+    "supportPolicy": [
+      "lts"
+    ]
   }
 }
